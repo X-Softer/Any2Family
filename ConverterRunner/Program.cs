@@ -24,7 +24,7 @@ namespace ConverterRunner
             TinkoffTLConverter tc = new TinkoffTLConverter(MappingRules);
             IEnumerable<FamilyTransactionEntry> fts = tc.Convert(ts);
             
-
+            
             Console.ReadKey();
         }
 
