@@ -26,9 +26,14 @@ namespace FamilyConverter
                     Sum = (TTran.Type == TransactionEntryType.Expense) ? (0 - TTran.OperAmount) : TTran.OperAmount,
                 };
 
-                MapFields(nameof(TTran.Category), TTran.OperLocation, FTran);
+                MapFields(nameof(TTran.Category), TTran.Category, FTran);
                 MapFields(nameof(TTran.OperLocation), TTran.OperLocation, FTran);
-                MapFields(nameof(TTran.MCC), TTran.OperLocation, FTran);
+                MapFields(nameof(TTran.MCC), TTran.MCC, FTran);
+
+                if(String.IsNullOrEmpty(FTran.Category))
+                {
+                    FTran.Category = "--- НЕ РАЗНЕСЕНО ---";
+                }
 
                 FList.Add(FTran);
             }

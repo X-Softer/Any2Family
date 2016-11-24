@@ -8,13 +8,21 @@ using System.Threading.Tasks;
 
 using FamilyConverter;
 
-namespace ConverterRunner
+namespace Any2FamilyConsole
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string fn = @"d:\Downloads\operations Fri Oct 21 14_55_30 MSK 2016-Sun Nov 20 13_40_48 MSK 2016.csv";
+            if(args.Length < 1)
+            {
+                Console.WriteLine("Usage: any2familycon <filename>");
+                Console.WriteLine("Press any key ...");
+                return;
+            }
+
+            //string fn = @"d:\Downloads\operations Fri Oct 21 14_55_30 MSK 2016-Sun Nov 20 13_40_48 MSK 2016.csv";
+            string fn = args[0];
 
             TinkoffTransactionReader tr = new TinkoffTransactionReader(fn);
             IEnumerable<TransactionEntry> ts = tr.ReadTransactions();
@@ -23,8 +31,11 @@ namespace ConverterRunner
 
             TinkoffTLConverter tc = new TinkoffTLConverter(MappingRules);
             IEnumerable<FamilyTransactionEntry> fts = tc.Convert(ts);
-            
-            
+
+            XLSFamilySaver fs = new XLSFamilySaver($@"D:\temp\converted_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.xls");
+            fs.SaveTransactions(fts);
+
+            Console.WriteLine("Press any key ...");
             Console.ReadKey();
         }
 
