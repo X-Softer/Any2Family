@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyConverter", "FamilyConverter\FamilyConverter.csproj", "{E1A4AE2E-8AFF-4795-8DEE-43D6A93F00E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Any2FamilyConsole", "ConverterRunner\Any2FamilyConsole.csproj", "{45D84A3A-4330-4DCB-A630-E0D442BECAC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Any2FamilyConsole", "Any2FamilyConsole\Any2FamilyConsole.csproj", "{45D84A3A-4330-4DCB-A630-E0D442BECAC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
