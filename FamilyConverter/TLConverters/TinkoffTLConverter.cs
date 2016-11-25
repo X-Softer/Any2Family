@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FamilyConverter
 {
-    public class TinkoffTLConverter : BaseTLConverter
+    public class TinkoffTLConverter : TLConverter
     {
-        public TinkoffTLConverter(IEnumerable<MappingEntry> mapping_rules) : base("Tinkoff", mapping_rules)
+        public TinkoffTLConverter(TLConverterSettings settings) : base("Tinkoff", settings)
         {
         }
 
@@ -32,7 +32,7 @@ namespace FamilyConverter
 
                 if(String.IsNullOrEmpty(FTran.Category))
                 {
-                    FTran.Category = "--- НЕ РАЗНЕСЕНО ---";
+                    FTran.Category = Settings.DefaultCategory;
                 }
 
                 FList.Add(FTran);

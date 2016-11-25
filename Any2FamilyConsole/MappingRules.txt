@@ -1,6 +1,6 @@
 ﻿{Tinkoff}{OperLocation}{LENTA}={Category}{Прочие/неизвестные расходы}
 {Tinkoff}{OperLocation}{LENTA}={Comment}{РАЗНЕСТИ ЧЕК!}
-{Tinkoff}{OperLocation}{LENTA}={Contragent}{Магазины - ЛЕНТА}
+{Tinkoff}{OperLocation}{LENTA}={Contragent}{ЛЕНТА}
 {Tinkoff}{OperLocation}{KEDR}={Category}{Питание: Продукты}
 {Tinkoff}{OperLocation}{IP GUDKOVA M.V}={Category}{Питание: Обеды}
 {Tinkoff}{Category}{Фастфуд}={Category}{Питание: Кафе/рестораны}

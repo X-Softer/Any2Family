@@ -14,34 +14,62 @@ namespace Any2FamilyConsole
     {
         static void Main(string[] args)
         {
-            if(args.Length < 1)
+            if(args.Length < 2)
             {
-                Console.WriteLine("Usage: any2familycon <filename>");
-                Console.WriteLine("Press any key ...");
+                Console.WriteLine("\nUsage: any2familycon <type> <filename> [output filename]");
+                Console.WriteLine("\nTypes: 1 -  Tinkoff Bank CSV-file");
+                Console.WriteLine("       2 -  Bank SPB CSV-file");
+                Console.WriteLine("       3 -  PSCB CSV-file");
                 return;
             }
 
-            //string fn = @"d:\Downloads\operations Fri Oct 21 14_55_30 MSK 2016-Sun Nov 20 13_40_48 MSK 2016.csv";
             string fn = args[0];
+            string out_fn = $"converted_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.xls";
+            if (args.Length >= 3)
+            {
+                out_fn = args[2];
+            }
 
-            TinkoffTransactionReader tr = new TinkoffTransactionReader(fn);
-            IEnumerable<TransactionEntry> ts = tr.ReadTransactions();
+            int ConvType = Convert.ToInt32(args[1]);
 
-            IEnumerable<MappingEntry> MappingRules = LoadMappingRules("MappingRules.txt");
+            TLConverterSettings TLSettings = LoadSettings("MappingRules.txt");
 
-            TinkoffTLConverter tc = new TinkoffTLConverter(MappingRules);
-            IEnumerable<FamilyTransactionEntry> fts = tc.Convert(ts);
+            ITransactionReader TransReader;
+            ITLConverter TransListConverter;
+            switch (ConvType)
+            {
+                case 1:
+                    {
+                        TransReader = new TinkoffTransactionReader(fn);
+                        TransListConverter = new TinkoffTLConverter(TLSettings);
+                        break;
+                    }
+                default:
+                    {
+                        throw new Exception("Неизвестный тип конвертера данных");
+                    }
+            }
 
-            XLSFamilySaver fs = new XLSFamilySaver($@"D:\temp\converted_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.xls");
-            fs.SaveTransactions(fts);
+            Console.WriteLine($"Загружаем транзакции из файла: {fn} ...");
+            IEnumerable<TransactionEntry> ReadedTransactions = TransReader.ReadTransactions();
+            Console.WriteLine($"Загружено {ReadedTransactions.Count()} транзакций");
 
-            Console.WriteLine("Press any key ...");
+            Console.WriteLine($"Конвертируем транзакции ...");
+            IEnumerable<FamilyTransactionEntry> FamilyTransactions = TransListConverter.Convert(ReadedTransactions);
+            Console.WriteLine($"Сконвертировано {FamilyTransactions.Count()} транзакций");
+
+            IFamilySaver fs = new XLSFamilySaver(out_fn);
+            Console.WriteLine($"Сохраняем транзакции в файл: {out_fn} ...");
+            fs.SaveTransactions(FamilyTransactions);
+            Console.WriteLine("Файл сохранен");
+
+            Console.WriteLine("\nPress any key ...");
             Console.ReadKey();
         }
 
-        static IEnumerable<MappingEntry> LoadMappingRules(string fn)
+        static TLConverterSettings LoadSettings(string fn)
         {
-            List<MappingEntry> mr_list = new List<MappingEntry>();
+            TLConverterSettings setts = new TLConverterSettings();
 
             using (StreamReader sr = new StreamReader(File.OpenRead(fn)))
             {
@@ -68,11 +96,11 @@ namespace Any2FamilyConsole
                         TargetEntryPropertyValue = mc.Groups[5].Value.Trim('{', '}')
                     };
 
-                    mr_list.Add(me);
+                    setts.MappingRules.Add(me);
                 }
             }
 
-            return mr_list;
+            return setts;
         }
     }
 }

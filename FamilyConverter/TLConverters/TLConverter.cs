@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
 namespace FamilyConverter
 {
-    public abstract class BaseTLConverter : ITLConverter
+    public abstract class TLConverter : ITLConverter
     {
         protected string name;
-        protected IEnumerable<MappingEntry> MappingRules;
- 
-        public BaseTLConverter(string name, IEnumerable<MappingEntry> mapping_rules)
+        protected TLConverterSettings Settings;
+
+        public TLConverter(string name, TLConverterSettings settings)
         {
             this.name = name;
-            this.MappingRules = mapping_rules;
+            this.Settings = settings ?? new TLConverterSettings();
         }
 
         public string Name
@@ -27,10 +28,10 @@ namespace FamilyConverter
 
         protected void MapFields(string field_name, string field_value, FamilyTransactionEntry fte)
         {
-            IEnumerable<MappingEntry> RulesForField = MappingRules.Where(x => x.SourceName == Name)
+            IEnumerable<MappingEntry> RulesForField = Settings.MappingRules.Where(x => x.SourceName == Name)
                     .Where(x => (x.SourceEntryPropertyName == field_name && x.SourceEntryPropertyValue == field_value));
 
-            foreach(var rule in RulesForField)
+            foreach (var rule in RulesForField)
             {
                 PropertyInfo pi = fte.GetType().GetProperty(rule.TargetEntryPropertyName);
                 if (pi != null)

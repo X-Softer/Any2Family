@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FamilyConverter
 {
-    public class TinkoffTransactionReader : ITransactionReader
+    public class TinkoffTransactionReader : FileTransactionReader
     {
-        private string FileName;
         private NumberFormatInfo Nfi = new NumberFormatInfo();
 
         public TinkoffTransactionReader(string file_name)
+            :base(file_name)
         {
             FileName = file_name;
             Nfi.CurrencyGroupSeparator = "";
@@ -23,7 +23,7 @@ namespace FamilyConverter
             Nfi.NumberDecimalDigits = 4;
         }
 
-        public IEnumerable<TransactionEntry> ReadTransactions()
+        public override IEnumerable<TransactionEntry> ReadTransactions()
         {
             List<TransactionEntry> TransList = new List<TransactionEntry>();
 

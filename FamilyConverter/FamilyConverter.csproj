@@ -55,18 +55,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Readers\FileTransactionReader.cs" />
+    <Compile Include="TLConverterSettings.cs" />
     <Compile Include="FileFamilySaver.cs" />
-    <Compile Include="BaseTLConverter.cs" />
+    <Compile Include="TLConverters\TLConverter.cs" />
     <Compile Include="FamilyTransactionEntry.cs" />
     <Compile Include="Interfaces\IFamilyConverter.cs" />
     <Compile Include="Interfaces\IFamilySaver.cs" />
     <Compile Include="Interfaces\ITLConverter.cs" />
     <Compile Include="MappingEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SCVReader.cs" />
-    <Compile Include="TinkoffTLConverter.cs" />
+    <Compile Include="Readers\SCVReader.cs" />
+    <Compile Include="TLConverters\TinkoffTLConverter.cs" />
     <Compile Include="TinkoffTransactionEntry.cs" />
-    <Compile Include="TinkoffTransactionReader.cs" />
+    <Compile Include="Readers\TinkoffTransactionReader.cs" />
     <Compile Include="TransactionEntry.cs" />
     <Compile Include="Interfaces\ITransactionReader.cs" />
     <Compile Include="XLSFamilySaver.cs" />

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<settings>
+  <default_value field_name="Category"></default_value>
+  <mapping_rules>
+      <mapping_rule converter="*">
+          <SourceProperty name="OperLocation">LENTA</SourceProperty>
+          <TargetProperty name="Comment">РАЗНЕСТИ ЧЕК!</TargetProperty>
+      </mapping_rule>
+      <mapping_rule converter="*">
+          <SourceProperty name="OperLocation">LENTA</SourceProperty>
+          <TargetProperty name="Contragent">Магазины - ЛЕНТА</TargetProperty>
+      </mapping_rule>
+      <mapping_rule converter="*">
+          <SourceProperty name="Category">Аптеки</SourceProperty>
+          <TargetProperty name="Category">Медицина: Лекарства</TargetProperty>
+      </mapping_rule>
+      <mapping_rule converter="Tinkoff">
+          <SourceProperty name="OperLocation">IP GUDKOVA M.V</SourceProperty>
+          <TargetProperty name="Category">Питание: Обеды</TargetProperty>
+      </mapping_rule>
+  </mapping_rules>
+</settings>
