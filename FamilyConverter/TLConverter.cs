@@ -28,7 +28,7 @@ namespace FamilyConverter
 
         protected void MapFields(string field_name, string field_value, FamilyTransactionEntry fte)
         {
-            IEnumerable<MappingEntry> RulesForField = Settings.MappingRules.Where(x => x.SourceName == Name)
+            IEnumerable<MappingEntry> RulesForField = Settings.MappingRules.Where(x => (x.SourceName == Name || x.SourceName == "*"))
                     .Where(x => (x.SourceEntryPropertyName == field_name && x.SourceEntryPropertyValue == field_value));
 
             foreach (var rule in RulesForField)

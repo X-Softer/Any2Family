@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FamilyConverter
@@ -37,7 +38,7 @@ namespace FamilyConverter
                         throw new Exception("File Format Error, not enough colums!");
                     }
 
-                    str = str.Select(x => x.Trim('"')).ToArray();
+                    str = str.Select(x => DeQuote(x)).Select(x => UnMaskQuotes(x)).ToArray();
 
                     TinkoffTransactionEntry TransEntry = new TinkoffTransactionEntry()
                     {
@@ -60,6 +61,19 @@ namespace FamilyConverter
             }
 
             return TransList;
+        }
+
+        private string DeQuote(string str)
+        {
+            str = Regex.Replace(str, "^\"", "");
+            str = Regex.Replace(str, "\"$", "");
+
+            return str;
+        }
+
+        private string UnMaskQuotes(string str)
+        {
+            return Regex.Replace(str, "(\"\")", "\"");
         }
     }
 }

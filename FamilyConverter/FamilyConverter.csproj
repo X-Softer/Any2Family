@@ -55,22 +55,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Readers\FileTransactionReader.cs" />
+    <Compile Include="FileTransactionReader.cs" />
     <Compile Include="TLConverterSettings.cs" />
     <Compile Include="FileFamilySaver.cs" />
-    <Compile Include="TLConverters\TLConverter.cs" />
+    <Compile Include="TLConverter.cs" />
     <Compile Include="FamilyTransactionEntry.cs" />
     <Compile Include="Interfaces\IFamilyConverter.cs" />
     <Compile Include="Interfaces\IFamilySaver.cs" />
     <Compile Include="Interfaces\ITLConverter.cs" />
     <Compile Include="MappingEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Readers\SCVReader.cs" />
-    <Compile Include="TLConverters\TinkoffTLConverter.cs" />
-    <Compile Include="TinkoffTransactionEntry.cs" />
-    <Compile Include="Readers\TinkoffTransactionReader.cs" />
+    <Compile Include="SCVReader.cs" />
+    <Compile Include="Tinkoff\TinkoffTLConverter.cs" />
+    <Compile Include="Tinkoff\TinkoffTransactionEntry.cs" />
+    <Compile Include="Tinkoff\TinkoffTransactionReader.cs" />
     <Compile Include="TransactionEntry.cs" />
     <Compile Include="Interfaces\ITransactionReader.cs" />
+    <Compile Include="TransactionPair.cs" />
     <Compile Include="XLSFamilySaver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

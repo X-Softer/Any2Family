@@ -9,6 +9,7 @@ namespace FamilyConverter
     public interface ITLConverter
     {
         string Name { get; }
+        
         IEnumerable<FamilyTransactionEntry> Convert(IEnumerable<TransactionEntry> transaction_list);
     }
 }

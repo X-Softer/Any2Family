@@ -19,12 +19,14 @@ namespace FamilyConverter
             foreach(var transaction in transaction_list)
             {
                 TinkoffTransactionEntry TTran = transaction as TinkoffTransactionEntry;
-
                 FamilyTransactionEntry FTran = new FamilyTransactionEntry()
                 {
                     Date = TTran.OperTime,
                     Sum = (TTran.Type == TransactionEntryType.Expense) ? (0 - TTran.OperAmount) : TTran.OperAmount,
                 };
+
+                // Just for debug
+                FTran.Comment = TTran.OperLocation;
 
                 MapFields(nameof(TTran.Category), TTran.Category, FTran);
                 MapFields(nameof(TTran.OperLocation), TTran.OperLocation, FTran);

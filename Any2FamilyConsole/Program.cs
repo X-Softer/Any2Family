@@ -39,7 +39,6 @@ namespace Any2FamilyConsole
             ITLConverter TransListConverter;
             switch (ConvType)
             {
-                // Tinkoff
                 case 1:
                     {
                         TransReader = new TinkoffTransactionReader(fn);
@@ -63,13 +62,13 @@ namespace Any2FamilyConsole
             IEnumerable<TransactionEntry> ReadedTransactions = TransReader.ReadTransactions();
             Console.WriteLine($"Загружено {ReadedTransactions.Count()} транзакций");
 
-            // Analyze transactions
-
-
             // Convert transactions
             Console.WriteLine($"Конвертируем транзакции ...");
             IEnumerable<FamilyTransactionEntry> FamilyTransactions = TransListConverter.Convert(ReadedTransactions);
             Console.WriteLine($"Сконвертировано {FamilyTransactions.Count()} транзакций");
+
+            // Analyze transactions
+            AnalizeTransactionsList(FamilyTransactions);
 
             // Save transaction to Family11 format
             IFamilySaver fs = new XLSFamilySaver(out_fn);
@@ -82,6 +81,17 @@ namespace Any2FamilyConsole
 
             Console.WriteLine("\nPress any key ...");
             Console.ReadKey();
+        }
+
+        private static void AnalizeTransactionsList(IEnumerable<FamilyTransactionEntry> familyTransactions)
+        {
+            //foreach (var trans in familyTransactions)
+            //{
+            //    if(String.IsNullOrEmpty(trans.Category))
+            //    {
+            //        Console.WriteLine($"--- Для транзакции {trans.}")
+            //    }
+            //}
         }
 
         // Load settings

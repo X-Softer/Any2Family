@@ -1,34 +1,62 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
 <settings>
-  <default_value field_name="Category">G</default_value>
-  <mapping_rules>
-      <mapping_rule converter="*">
-          <source_property name="OperLocation">LENTA</source_property>
-          <target_property name="Comment">РАЗНЕСТИ ЧЕК!</target_property>
-      </mapping_rule>
-      <mapping_rule converter="*">
-          <source_property name="OperLocation">LENTA</source_property>
-          <target_property name="Contragent">Магазины - ЛЕНТА</target_property>
-      </mapping_rule>
-      <mapping_rule converter="*">
-          <source_property name="Category">Аптеки</source_property>
-          <target_property name="Category">Медицина: Лекарства</target_property>
-      </mapping_rule>
-      <mapping_rule converter="Tinkoff">
-          <source_property name="OperLocation">IP GUDKOVA M.V</source_property>
-          <target_property name="Category">Питание: Обеды</target_property>
-      </mapping_rule>
-      <mapping_rule converter="Tinkoff">
-          <source_property name="OperLocation">KEDR</source_property>
-          <target_property name="Category">Питание: Продукты</target_property>
-      </mapping_rule>
-      <mapping_rule converter="Tinkoff">
-          <source_property name="Category">Фастфуд</source_property>
-          <target_property name="Category">Питание: Кафе/рестораны</target_property>
-      </mapping_rule>
-      <mapping_rule converter="Tinkoff">
-          <source_property name="Category">Рестораны</source_property>
-          <target_property name="Category">Питание: Кафе/рестораны</target_property>
-      </mapping_rule>
-  </mapping_rules>
+	<default_value field_name="Category"></default_value>
+	<mapping_rules>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">LENTA</source_property>
+			<target_property name="Comment">РАЗНЕСТИ ЧЕК!</target_property>
+		</mapping_rule>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">LENTA</source_property>
+			<target_property name="Contragent">Магазины - ЛЕНТА</target_property>
+		</mapping_rule>
+		<mapping_rule converter="*">
+			<source_property name="Category">Аптеки</source_property>
+			<target_property name="Category">Медицина: Лекарства</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">IP GUDKOVA M.V</source_property>
+			<target_property name="Category">Питание: Обеды</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">KEDR</source_property>
+			<target_property name="Category">Питание: Продукты</target_property>
+		</mapping_rule>
+    <mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">Дикси</source_property>
+			<target_property name="Category">Питание: Продукты</target_property>
+		</mapping_rule>
+    <mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">7Я семьЯ</source_property>
+			<target_property name="Category">Питание: Продукты</target_property>
+		</mapping_rule>
+    <mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">Пятерочка</source_property>
+			<target_property name="Category">Питание: Продукты</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="Category">Фастфуд</source_property>
+			<target_property name="Category">Питание: Кафе/рестораны</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="Category">Рестораны</source_property>
+			<target_property name="Category">Питание: Кафе/рестораны</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="Category">Топливо</source_property>
+			<target_property name="Category">Транспорт: Автомобиль: Бензин</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="Category">Транспорт</source_property>
+			<target_property name="Category">Транспорт: Общественный транспорт</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">Пополнение через МОСКОВСКИЙ ФИЛИАЛ АО БАНК "ПСКБ"</source_property>
+			<target_property name="Category">Перевод денег: Из "ПСКБ Зарплатный"</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">Пополнение через МОСКОВСКИЙ ФИЛИАЛ АО БАНК "ПСКБ"</source_property>
+			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
+		</mapping_rule>
+	</mapping_rules>
 </settings>
