@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <settings>
 	<default_value field_name="Category"></default_value>
 	<mapping_rules>
@@ -8,7 +8,27 @@
 		</mapping_rule>
 		<mapping_rule converter="*">
 			<source_property name="OperLocation">LENTA</source_property>
+			<target_property name="Category">Прочие/неизвестные расходы</target_property>
+		</mapping_rule>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">LENTA</source_property>
 			<target_property name="Contragent">Магазины - ЛЕНТА</target_property>
+		</mapping_rule>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">ИКЕА</source_property>
+			<target_property name="Contragent">Магазины - ИКЕА</target_property>
+		</mapping_rule>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">Ашан</source_property>
+			<target_property name="Comment">РАЗНЕСТИ ЧЕК!</target_property>
+		</mapping_rule>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">Ашан</source_property>
+			<target_property name="Contragent">Магазины - АШАН</target_property>
+		</mapping_rule>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">Ашан</source_property>
+			<target_property name="Category">Прочие/неизвестные расходы</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
 			<source_property name="Category">Аптеки</source_property>
@@ -22,15 +42,15 @@
 			<source_property name="OperLocation">KEDR</source_property>
 			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
-    <mapping_rule converter="Tinkoff">
+		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">Дикси</source_property>
 			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
-    <mapping_rule converter="Tinkoff">
+		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">7Я семьЯ</source_property>
 			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
-    <mapping_rule converter="Tinkoff">
+		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">Пятерочка</source_property>
 			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
@@ -56,6 +76,14 @@
 		</mapping_rule>
 		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">Пополнение через МОСКОВСКИЙ ФИЛИАЛ АО БАНК "ПСКБ"</source_property>
+			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="Category">Наличные</source_property>
+			<target_property name="Category">Перевод денег: На "Наличные"</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="Category">Наличные</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
 		</mapping_rule>
 	</mapping_rules>

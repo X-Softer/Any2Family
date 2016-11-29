@@ -32,9 +32,10 @@ namespace FamilyConverter
                 MapFields(nameof(TTran.OperLocation), TTran.OperLocation, FTran);
                 MapFields(nameof(TTran.MCC), TTran.MCC, FTran);
 
-                if(String.IsNullOrEmpty(FTran.Category))
+                if (String.IsNullOrEmpty(FTran.Category))
                 {
                     FTran.Category = Settings.DefaultCategory;
+                    //FTran.Comment = TTran.OperLocation;
                 }
 
                 FList.Add(FTran);
