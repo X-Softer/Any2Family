@@ -15,6 +15,7 @@ namespace Any2FamilyConsole
     class Program
     {
         const string SettingsFileName = "Settings.xml"; // Settings filename
+        static List<FamilyCategory> FamilyCategories;
 
         static void Main(string[] args)
         {
@@ -28,13 +29,13 @@ namespace Any2FamilyConsole
                     Console.WriteLine("       3 -  PSCB CSV-file");
                     return;
                 }
-
+                
                 string fn = args[1];
 
                 int ConvType = Convert.ToInt32(args[0]);
 
-                //TLConverterSettings TLSettings = LoadSettings("MappingRules.txt");
                 TLConverterSettings TLSettings = LoadSettings(SettingsFileName);
+                FamilyCategories = LoadFamilyCategories(SettingsFileName);
 
                 // Choose reader and converter
                 ITransactionReader TransReader;
@@ -90,6 +91,31 @@ namespace Any2FamilyConsole
                 Console.WriteLine("\nPress any key ...");
                 Console.ReadKey();
             }
+        }
+
+        // Load family categories from settings-file
+        private static List<FamilyCategory> LoadFamilyCategories(string settingsFileName)
+        {
+            List<FamilyCategory> res = new List<FamilyCategory>();
+
+            XDocument SettingsDoc = XDocument.Load(settingsFileName);
+            var CategoryElements = SettingsDoc?.Element("settings")?.Element("family_categories")?.Descendants("category");
+
+            if (CategoryElements != null)
+            {
+                foreach (var catElem in CategoryElements)
+                {
+                    FamilyCategory cat = new FamilyCategory()
+                    {
+                        Type = Int32.Parse(catElem.Attribute("type").Value),
+                        Name = catElem.Attribute("name").Value
+                    };
+
+                    res.Add(cat);
+                }
+            }
+
+            return res;
         }
 
         private static void AnalizeTransactionsList(IEnumerable<FamilyTransactionEntry> familyTransactions)

@@ -87,4 +87,80 @@
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
 		</mapping_rule>
 	</mapping_rules>
+  <family_categories>
+    <category name="Детские пособия" type="2" />
+    <category name="Заработок" type="2" />
+    <category name="Заработок: Зарплата Дет. сад 355" type="2" />
+    <category name="Заработок: Зарплата ПСКБ" type="2" />
+    <category name="Заработок: Зарплата Унисенсор" type="2" />
+    <category name="Заработок: Премия" type="2" />
+    <category name="Заработок: Халтура Денис" type="2" />
+    <category name="Подарки (доход)" type="2" />
+    <category name="Прочие" type="2" />
+    <category name="Бытовая/комп. техника" type="1" />
+    <category name="Велосипед" type="1" />
+    <category name="Дети" type="1" />
+    <category name="Дети: Игрушки" type="1" />
+    <category name="Дети: Одежда" type="1" />
+    <category name="Дети: Питание" type="1" />
+    <category name="Дети: Прочее" type="1" />
+    <category name="Дети: Развлечения" type="1" />
+    <category name="Дети: Спорт" type="1" />
+    <category name="Детский сад" type="1" />
+    <category name="Детский сад: Оплата" type="1" />
+    <category name="Детский сад: Прочее" type="1" />
+    <category name="Коммунальные услуги" type="1" />
+    <category name="Коммунальные услуги: Интернет" type="1" />
+    <category name="Коммунальные услуги: Квартира" type="1" />
+    <category name="Коммунальные услуги: Свет" type="1" />
+    <category name="Коммунальные услуги: Сотовый телефон" type="1" />
+    <category name="Коммунальные услуги: Телефон стац." type="1" />
+    <category name="Косметика" type="1" />
+    <category name="Литература/газеты/журналы" type="1" />
+    <category name="Медицина" type="1" />
+    <category name="Медицина: Лекарства" type="1" />
+    <category name="Медицина: Лечение" type="1" />
+    <category name="Обучение" type="1" />
+    <category name="Одежда/обувь" type="1" />
+    <category name="Парикмахерские/косметические услуги" type="1" />
+    <category name="Питание" type="1" />
+    <category name="Питание: Кафе/рестораны" type="1" />
+    <category name="Питание: Обеды" type="1" />
+    <category name="Питание: Продукты" type="1" />
+    <category name="Подарки" type="1" />
+    <category name="Подарки" type="1" />
+    <category name="Предметы туалета" type="1" />
+    <category name="Прочие/неизвестные расходы" type="1" />
+    <category name="Путешествия" type="1" />
+    <category name="Путешествия: Авиабилеты" type="1" />
+    <category name="Путешествия: Автобусные билеты" type="1" />
+    <category name="Путешествия: Визы/страховка" type="1" />
+    <category name="Путешествия: Ж/Д билеты" type="1" />
+    <category name="Путешествия: Питание" type="1" />
+    <category name="Путешествия: Покупки" type="1" />
+    <category name="Путешествия: Проживание" type="1" />
+    <category name="Путешествия: Прочее" type="1" />
+    <category name="Путешествия: Путевки" type="1" />
+    <category name="Путешествия: Развлечения" type="1" />
+    <category name="Путешествия: Транспорт" type="1" />
+    <category name="Развлечение" type="1" />
+    <category name="Рукоделие" type="1" />
+    <category name="Семейные расходы" type="1" />
+    <category name="Спортзал" type="1" />
+    <category name="Транспорт" type="1" />
+    <category name="Транспорт: Автомобиль" type="1" />
+    <category name="Транспорт: Автомобиль: Аксессуары" type="1" />
+    <category name="Транспорт: Автомобиль: Бензин" type="1" />
+    <category name="Транспорт: Автомобиль: Запчасти" type="1" />
+    <category name="Транспорт: Автомобиль: Обслуживание" type="1" />
+    <category name="Транспорт: Автомобиль: Прочее" type="1" />
+    <category name="Транспорт: Автомобиль: Рассрочка" type="1" />
+    <category name="Транспорт: Автомобиль: Штрафы" type="1" />
+    <category name="Транспорт: Общественный транспорт" type="1" />
+    <category name="Хозяйственные товары" type="1" />
+    <category name="Школа" type="1" />
+    <category name="Школа: Канцелярия/литература" type="1" />
+    <category name="Школа: Питание" type="1" />
+    <category name="Школа: Прочее" type="1" />
+  </family_categories>
 </settings>

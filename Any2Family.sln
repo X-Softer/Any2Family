@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyConverter", "FamilyCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Any2FamilyConsole", "Any2FamilyConsole\Any2FamilyConsole.csproj", "{45D84A3A-4330-4DCB-A630-E0D442BECAC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Any2FamilyWeb", "Any2FamilyWeb\Any2FamilyWeb.csproj", "{16744408-E040-4D7B-AA5A-27EA9E73BBC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{45D84A3A-4330-4DCB-A630-E0D442BECAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45D84A3A-4330-4DCB-A630-E0D442BECAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45D84A3A-4330-4DCB-A630-E0D442BECAC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16744408-E040-4D7B-AA5A-27EA9E73BBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16744408-E040-4D7B-AA5A-27EA9E73BBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16744408-E040-4D7B-AA5A-27EA9E73BBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16744408-E040-4D7B-AA5A-27EA9E73BBC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

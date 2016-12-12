@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FamilyConverter
 {
-    public enum TransactionEntryType { Income, Expense };
+    public enum TransactionEntryType { Expense = 1, Income = 2 };
 
     public class TransactionEntry
     {
