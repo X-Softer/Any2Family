@@ -30,6 +30,7 @@ namespace FamilyConverter
 
             using (SCVReader csvr = new SCVReader(FileName, Encoding.GetEncoding("windows-1251")))
             {
+                int tId = 1;
                 string[] str;
                 while ((str = csvr.ReadRow()) != null)
                 {
@@ -42,6 +43,7 @@ namespace FamilyConverter
 
                     TinkoffTransactionEntry TransEntry = new TinkoffTransactionEntry()
                     {
+                        Id = tId.ToString(), 
                         OperTime = DateTime.ParseExact(str[0], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                         AcceptTime = String.IsNullOrEmpty(str[1]) ? null : (DateTime?)DateTime.ParseExact(str[1], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                         CardMask = str[2],
@@ -57,6 +59,7 @@ namespace FamilyConverter
                     };
 
                     TransList.Add(TransEntry);
+                    tId++;
                 }
             }
 

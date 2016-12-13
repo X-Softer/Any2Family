@@ -78,6 +78,22 @@
 			<source_property name="OperLocation">Пополнение через МОСКОВСКИЙ ФИЛИАЛ АО БАНК "ПСКБ"</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
 		</mapping_rule>
+    <mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">Пополнение Накопительный счет</source_property>
+			<target_property name="Category">Перевод денег: На "Тинькофф - Сейф"</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">Пополнение Накопительный счет</source_property>
+			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
+		</mapping_rule> 
+    <mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">Пополнение вклада</source_property>
+			<target_property name="Category">Перевод денег: На "Тинькофф - СМАРТ"</target_property>
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">Пополнение вклада</source_property>
+			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
+		</mapping_rule> 
 		<mapping_rule converter="Tinkoff">
 			<source_property name="Category">Наличные</source_property>
 			<target_property name="Category">Перевод денег: На "Наличные"</target_property>
@@ -85,6 +101,14 @@
 		<mapping_rule converter="Tinkoff">
 			<source_property name="Category">Наличные</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
+		</mapping_rule>
+    <mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">PRISMA</source_property>
+			<target_property name="Contragent">Магазины - PRISMA</target_property>
+		</mapping_rule>
+    <mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">PRISMA</source_property>
+			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
 	</mapping_rules>
   <family_categories>
@@ -163,4 +187,23 @@
     <category name="Школа: Питание" type="1" />
     <category name="Школа: Прочее" type="1" />
   </family_categories>
+  <family_contragents>
+      <contragent>Авиакомпания "Россия"</contragent>
+      <contragent>Банк Тинькофф</contragent>
+      <contragent>ВТБ24</contragent>
+      <contragent>Газукин Денис</contragent>
+      <contragent>ЛЕНТА</contragent>
+      <contragent>Липин Антон</contragent>
+      <contragent>МТС</contragent>
+      <contragent>Магазины - PRISMA</contragent>
+      <contragent>Магазины - АШАН</contragent>
+      <contragent>Магазины - ИКЕА</contragent>
+      <contragent>Магазины - ЛЕНТА</contragent>
+      <contragent>Магазины - ОКЕЙ</contragent>
+      <contragent>Магазины - Прочие</contragent>
+      <contragent>Магазины - РЕАЛ</contragent>
+      <contragent>Метрополитен</contragent>
+      <contragent>ПСКБ</contragent>
+      <contragent>Унисенсор</contragent>
+  </family_contragents>
 </settings>

@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FamilyCategory.cs" />
     <Compile Include="FileTransactionReader.cs" />
     <Compile Include="TLConverterSettings.cs" />
     <Compile Include="FileFamilySaver.cs" />
@@ -71,7 +72,6 @@
     <Compile Include="Tinkoff\TinkoffTransactionReader.cs" />
     <Compile Include="TransactionEntry.cs" />
     <Compile Include="Interfaces\ITransactionReader.cs" />
-    <Compile Include="TransactionPair.cs" />
     <Compile Include="XLSFamilySaver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

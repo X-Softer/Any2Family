@@ -10,6 +10,7 @@ namespace FamilyConverter
 
     public class TransactionEntry
     {
+        public string Id { get; set; }
         public TransactionEntryType Type { get; set; }
         public DateTime OperTime { get; set; }
         public DateTime? AcceptTime { get; set; }

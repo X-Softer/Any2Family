@@ -21,6 +21,7 @@ namespace FamilyConverter
                 TinkoffTransactionEntry TTran = transaction as TinkoffTransactionEntry;
                 FamilyTransactionEntry FTran = new FamilyTransactionEntry()
                 {
+                    Id = TTran.Id,
                     Date = TTran.OperTime,
                     Sum = (TTran.Type == TransactionEntryType.Expense) ? (0 - TTran.OperAmount) : TTran.OperAmount,
                 };

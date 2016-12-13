@@ -15,7 +15,7 @@ namespace Any2FamilyConsole
     class Program
     {
         const string SettingsFileName = "Settings.xml"; // Settings filename
-        static List<FamilyCategory> FamilyCategories;
+        static ProgramSettings Settings;
 
         static void Main(string[] args)
         {
@@ -34,9 +34,9 @@ namespace Any2FamilyConsole
 
                 int ConvType = Convert.ToInt32(args[0]);
 
-                TLConverterSettings TLSettings = LoadSettings(SettingsFileName);
-                FamilyCategories = LoadFamilyCategories(SettingsFileName);
-
+                // Load settings
+                Settings = ProgramSettings.Create(SettingsFileName);
+                
                 // Choose reader and converter
                 ITransactionReader TransReader;
                 ITLConverter TransListConverter;
@@ -45,7 +45,7 @@ namespace Any2FamilyConsole
                     case 1:
                         {
                             TransReader = new TinkoffTransactionReader(fn);
-                            TransListConverter = new TinkoffTLConverter(TLSettings);
+                            TransListConverter = new TinkoffTLConverter(Settings.TLSettings);
                             break;
                         }
                     default:
@@ -80,7 +80,8 @@ namespace Any2FamilyConsole
                 Console.WriteLine("Файл сохранен");
 
                 // Save settings to file
-                SaveSettings(TLSettings, SettingsFileName);
+                //SaveSettings(SettingsFileName);
+                Settings.Save();
 
                 Console.WriteLine("\nPress any key ...");
                 Console.ReadKey();
@@ -93,31 +94,6 @@ namespace Any2FamilyConsole
             }
         }
 
-        // Load family categories from settings-file
-        private static List<FamilyCategory> LoadFamilyCategories(string settingsFileName)
-        {
-            List<FamilyCategory> res = new List<FamilyCategory>();
-
-            XDocument SettingsDoc = XDocument.Load(settingsFileName);
-            var CategoryElements = SettingsDoc?.Element("settings")?.Element("family_categories")?.Descendants("category");
-
-            if (CategoryElements != null)
-            {
-                foreach (var catElem in CategoryElements)
-                {
-                    FamilyCategory cat = new FamilyCategory()
-                    {
-                        Type = Int32.Parse(catElem.Attribute("type").Value),
-                        Name = catElem.Attribute("name").Value
-                    };
-
-                    res.Add(cat);
-                }
-            }
-
-            return res;
-        }
-
         private static void AnalizeTransactionsList(IEnumerable<FamilyTransactionEntry> familyTransactions)
         {
             //foreach (var trans in familyTransactions)
@@ -128,123 +104,5 @@ namespace Any2FamilyConsole
             //    }
             //}
         }
-
-        // Load settings
-        static TLConverterSettings LoadSettings(string fn)
-        {
-            //return LoadTXTSettings(fn);
-            return LoadXMLSettings(fn);
-        }
-
-        // Save settings
-        static void SaveSettings(TLConverterSettings setts, string fn)
-        {
-            SaveXMLSettings(setts, fn);
-        }
-
-        // Load settings from TXT-file (not using)
-        private static TLConverterSettings LoadTXTSettings(string fn)
-        {
-            TLConverterSettings setts = new TLConverterSettings();
-
-            using (StreamReader sr = new StreamReader(File.OpenRead(fn)))
-            {
-                string str;
-                while ((str = sr.ReadLine()) != null)
-                {
-                    if (String.IsNullOrEmpty(str))
-                    {
-                        continue;
-                    }
-
-                    Match mc = Regex.Match(str, @"({.+})({.+})({.+})=({.+})({.+})");
-                    if (mc.Groups.Count < 6)
-                    {
-                        throw new Exception("Invalid file format");
-                    }
-
-                    MappingEntry me = new MappingEntry()
-                    {
-                        SourceName = mc.Groups[1].Value.Trim('{', '}'),
-                        SourceEntryPropertyName = mc.Groups[2].Value.Trim('{', '}'),
-                        SourceEntryPropertyValue = mc.Groups[3].Value.Trim('{', '}'),
-                        TargetEntryPropertyName = mc.Groups[4].Value.Trim('{', '}'),
-                        TargetEntryPropertyValue = mc.Groups[5].Value.Trim('{', '}')
-                    };
-
-                    setts.MappingRules.Add(me);
-                }
-            }
-
-            return setts;
-        }
-
-        // Load settings from XML-file
-        private static TLConverterSettings LoadXMLSettings(string fn)
-        {
-            TLConverterSettings setts = new TLConverterSettings();
-
-            XDocument SettingsDoc = XDocument.Load(fn);
-
-            var DefaultValElements = SettingsDoc?.Element("settings")?.Descendants("default_value");
-            setts.DefaultCategory = DefaultValElements?.Where(x => x.Attribute("field_name")?.Value == "Category").First().Value;
-
-            var MappingRulesElements = SettingsDoc?.Element("settings")?.Element("mapping_rules")?.Descendants("mapping_rule");
-            foreach(var mr_element in MappingRulesElements)
-            {
-                MappingEntry me = new MappingEntry();
-                me.SourceName = mr_element.Attribute("converter")?.Value;
-                me.SourceEntryPropertyName = mr_element.Element("source_property").Attribute("name").Value;
-                me.SourceEntryPropertyValue = mr_element.Element("source_property").Value;
-                me.TargetEntryPropertyName = mr_element.Element("target_property").Attribute("name").Value;
-                me.TargetEntryPropertyValue = mr_element.Element("target_property").Value;
-                setts.MappingRules.Add(me);
-            }
-
-            return setts;
-        }
-
-        //
-        private static void SaveXMLSettings(TLConverterSettings setts, string fn)
-        {
-            Encoding enc = new UTF8Encoding(false);
-
-            XmlWriterSettings ws = new XmlWriterSettings();
-            ws.Indent = true;
-            ws.IndentChars = "\t";
-            ws.NewLineChars = "\n";
-            ws.Encoding = enc;
-
-            using (XmlWriter writer = XmlWriter.Create(fn, ws))
-            {
-
-                writer.WriteStartElement("settings");
-
-                writer.WriteStartElement("default_value");
-                writer.WriteAttributeString("field_name", "Category");
-                writer.WriteString(setts.DefaultCategory);
-                writer.WriteEndElement();
-
-                writer.WriteStartElement("mapping_rules");
-
-                foreach (var sett in setts.MappingRules)
-                {
-                    writer.WriteStartElement("mapping_rule");
-                    writer.WriteAttributeString("converter", sett.SourceName);
-                    writer.WriteStartElement("source_property");
-                    writer.WriteAttributeString("name", sett.SourceEntryPropertyName);
-                    writer.WriteString(sett.SourceEntryPropertyValue);
-                    writer.WriteEndElement();
-                    writer.WriteStartElement("target_property");
-                    writer.WriteAttributeString("name", sett.TargetEntryPropertyName);
-                    writer.WriteString(sett.TargetEntryPropertyValue);
-                    writer.WriteEndElement();
-                    writer.WriteEndElement();
-                }
-
-                writer.WriteEndElement();
-                writer.WriteEndElement();
-            }
-        }   
     }
 }

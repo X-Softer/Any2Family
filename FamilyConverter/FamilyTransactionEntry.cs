@@ -4,6 +4,7 @@ namespace FamilyConverter
 {
     public class FamilyTransactionEntry
     {
+        public string Id { get; set; }
         public DateTime Date { get; set; }
         public string Comment { get; set; }
         public string Tag { get; set; }
