@@ -18,7 +18,7 @@
 			<source_property name="OperLocation">r((ИКЕА)|(IKEA))</source_property>
 			<target_property name="Contragent">Магазины - ИКЕА</target_property>
 		</mapping_rule>
-    <mapping_rule converter="*">
+		<mapping_rule converter="*">
 			<source_property name="OperLocation">r((AUCHAN)|(Ашан))</source_property>
 			<target_property name="Comment">РАЗНЕСТИ ЧЕК!</target_property>
 		</mapping_rule>
@@ -34,7 +34,7 @@
 			<source_property name="Category">Аптеки</source_property>
 			<target_property name="Category">Медицина: Лекарства</target_property>
 		</mapping_rule>
-    <mapping_rule converter="*">
+		<mapping_rule converter="*">
 			<source_property name="OperLocation">r((APTEKA)|(Аптека)|(APTECA))</source_property>
 			<target_property name="Category">Медицина: Лекарства</target_property>
 		</mapping_rule>
@@ -46,11 +46,11 @@
 			<source_property name="OperLocation">r((KEDR)|(DIXY)|(SEMYA)|(PYATEROCHKA)|(Пятерочка)|(Дикси)|(PRISMA))</source_property>
 			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
-    <mapping_rule converter="*">
+		<mapping_rule converter="*">
 			<source_property name="OperLocation">r((ULYBKA RADUGI)|(Улыбка радуги)|(ZOLUSHKA)|(Золушка))</source_property>
 			<target_property name="Category">Хозяйственные товары</target_property>
 		</mapping_rule>
-    <mapping_rule converter="*">
+		<mapping_rule converter="*">
 			<source_property name="OperLocation">r((YARKII MIR RUKODELIJA)|(LEONARDO))</source_property>
 			<target_property name="Category">Рукоделие</target_property>
 		</mapping_rule>
@@ -82,22 +82,22 @@
 			<source_property name="OperLocation">Пополнение через МОСКОВСКИЙ ФИЛИАЛ АО БАНК "ПСКБ"</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
 		</mapping_rule>
-    <mapping_rule converter="Tinkoff">
+		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">Пополнение Накопительный счет</source_property>
 			<target_property name="Category">Перевод денег: На "Тинькофф - Сейф"</target_property>
 		</mapping_rule>
 		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">Пополнение Накопительный счет</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
-		</mapping_rule> 
-    <mapping_rule converter="Tinkoff">
+		</mapping_rule>
+		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">Пополнение вклада</source_property>
 			<target_property name="Category">Перевод денег: На "Тинькофф - СМАРТ"</target_property>
 		</mapping_rule>
 		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">Пополнение вклада</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
-		</mapping_rule> 
+		</mapping_rule>
 		<mapping_rule converter="Tinkoff">
 			<source_property name="Category">Наличные</source_property>
 			<target_property name="Category">Перевод денег: На "Наличные"</target_property>
@@ -106,116 +106,116 @@
 			<source_property name="Category">Наличные</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
 		</mapping_rule>
-    <mapping_rule converter="*">
+		<mapping_rule converter="*">
 			<source_property name="OperLocation">r(PRISMA)</source_property>
 			<target_property name="Contragent">Магазины - PRISMA</target_property>
 		</mapping_rule>
-    <mapping_rule converter="BSPB">
+		<mapping_rule converter="BSPB">
 			<source_property name="Category">r(Выдача наличных денег)</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
 		</mapping_rule>
-    <mapping_rule converter="BSPB">
+		<mapping_rule converter="BSPB">
 			<source_property name="Category">r(Выдача наличных денег)</source_property>
 			<target_property name="Category">Перевод денег: На "Наличные Наташи"</target_property>
 		</mapping_rule>
-    <mapping_rule converter="BSPB">
+		<mapping_rule converter="BSPB">
 			<source_property name="Category">r(Зачисление зарплаты)</source_property>
 			<target_property name="Category">Заработок: Зарплата Дет. сад 355</target_property>
 		</mapping_rule>
 	</mapping_rules>
-  <family_categories>
-    <category name="Детские пособия" type="2" />
-    <category name="Заработок" type="2" />
-    <category name="Заработок: Зарплата Дет. сад 355" type="2" />
-    <category name="Заработок: Зарплата ПСКБ" type="2" />
-    <category name="Заработок: Зарплата Унисенсор" type="2" />
-    <category name="Заработок: Премия" type="2" />
-    <category name="Заработок: Халтура Денис" type="2" />
-    <category name="Подарки (доход)" type="2" />
-    <category name="Прочие" type="2" />
-    <category name="Бытовая/комп. техника" type="1" />
-    <category name="Велосипед" type="1" />
-    <category name="Дети" type="1" />
-    <category name="Дети: Игрушки" type="1" />
-    <category name="Дети: Одежда" type="1" />
-    <category name="Дети: Питание" type="1" />
-    <category name="Дети: Прочее" type="1" />
-    <category name="Дети: Развлечения" type="1" />
-    <category name="Дети: Спорт" type="1" />
-    <category name="Детский сад" type="1" />
-    <category name="Детский сад: Оплата" type="1" />
-    <category name="Детский сад: Прочее" type="1" />
-    <category name="Коммунальные услуги" type="1" />
-    <category name="Коммунальные услуги: Интернет" type="1" />
-    <category name="Коммунальные услуги: Квартира" type="1" />
-    <category name="Коммунальные услуги: Свет" type="1" />
-    <category name="Коммунальные услуги: Сотовый телефон" type="1" />
-    <category name="Коммунальные услуги: Телефон стац." type="1" />
-    <category name="Косметика" type="1" />
-    <category name="Литература/газеты/журналы" type="1" />
-    <category name="Медицина" type="1" />
-    <category name="Медицина: Лекарства" type="1" />
-    <category name="Медицина: Лечение" type="1" />
-    <category name="Обучение" type="1" />
-    <category name="Одежда/обувь" type="1" />
-    <category name="Парикмахерские/косметические услуги" type="1" />
-    <category name="Питание" type="1" />
-    <category name="Питание: Кафе/рестораны" type="1" />
-    <category name="Питание: Обеды" type="1" />
-    <category name="Питание: Продукты" type="1" />
-    <category name="Подарки" type="1" />
-    <category name="Подарки" type="1" />
-    <category name="Предметы туалета" type="1" />
-    <category name="Прочие/неизвестные расходы" type="1" />
-    <category name="Путешествия" type="1" />
-    <category name="Путешествия: Авиабилеты" type="1" />
-    <category name="Путешествия: Автобусные билеты" type="1" />
-    <category name="Путешествия: Визы/страховка" type="1" />
-    <category name="Путешествия: Ж/Д билеты" type="1" />
-    <category name="Путешествия: Питание" type="1" />
-    <category name="Путешествия: Покупки" type="1" />
-    <category name="Путешествия: Проживание" type="1" />
-    <category name="Путешествия: Прочее" type="1" />
-    <category name="Путешествия: Путевки" type="1" />
-    <category name="Путешествия: Развлечения" type="1" />
-    <category name="Путешествия: Транспорт" type="1" />
-    <category name="Развлечение" type="1" />
-    <category name="Рукоделие" type="1" />
-    <category name="Семейные расходы" type="1" />
-    <category name="Спортзал" type="1" />
-    <category name="Транспорт" type="1" />
-    <category name="Транспорт: Автомобиль" type="1" />
-    <category name="Транспорт: Автомобиль: Аксессуары" type="1" />
-    <category name="Транспорт: Автомобиль: Бензин" type="1" />
-    <category name="Транспорт: Автомобиль: Запчасти" type="1" />
-    <category name="Транспорт: Автомобиль: Обслуживание" type="1" />
-    <category name="Транспорт: Автомобиль: Прочее" type="1" />
-    <category name="Транспорт: Автомобиль: Рассрочка" type="1" />
-    <category name="Транспорт: Автомобиль: Штрафы" type="1" />
-    <category name="Транспорт: Общественный транспорт" type="1" />
-    <category name="Хозяйственные товары" type="1" />
-    <category name="Школа" type="1" />
-    <category name="Школа: Канцелярия/литература" type="1" />
-    <category name="Школа: Питание" type="1" />
-    <category name="Школа: Прочее" type="1" />
-  </family_categories>
-  <family_contragents>
-      <contragent>Авиакомпания "Россия"</contragent>
-      <contragent>Банк Тинькофф</contragent>
-      <contragent>ВТБ24</contragent>
-      <contragent>Газукин Денис</contragent>
-      <contragent>ЛЕНТА</contragent>
-      <contragent>Липин Антон</contragent>
-      <contragent>МТС</contragent>
-      <contragent>Магазины - PRISMA</contragent>
-      <contragent>Магазины - АШАН</contragent>
-      <contragent>Магазины - ИКЕА</contragent>
-      <contragent>Магазины - ЛЕНТА</contragent>
-      <contragent>Магазины - ОКЕЙ</contragent>
-      <contragent>Магазины - Прочие</contragent>
-      <contragent>Магазины - РЕАЛ</contragent>
-      <contragent>Метрополитен</contragent>
-      <contragent>ПСКБ</contragent>
-      <contragent>Унисенсор</contragent>
-  </family_contragents>
+	<family_categories>
+		<category type="2">Детские пособия</category>
+		<category type="2">Заработок</category>
+		<category type="2">Заработок: Зарплата Дет. сад 355</category>
+		<category type="2">Заработок: Зарплата ПСКБ</category>
+		<category type="2">Заработок: Зарплата Унисенсор</category>
+		<category type="2">Заработок: Премия</category>
+		<category type="2">Заработок: Халтура Денис</category>
+		<category type="2">Подарки (доход)</category>
+		<category type="2">Прочие</category>
+		<category type="1">Бытовая/комп. техника</category>
+		<category type="1">Велосипед</category>
+		<category type="1">Дети</category>
+		<category type="1">Дети: Игрушки</category>
+		<category type="1">Дети: Одежда</category>
+		<category type="1">Дети: Питание</category>
+		<category type="1">Дети: Прочее</category>
+		<category type="1">Дети: Развлечения</category>
+		<category type="1">Дети: Спорт</category>
+		<category type="1">Детский сад</category>
+		<category type="1">Детский сад: Оплата</category>
+		<category type="1">Детский сад: Прочее</category>
+		<category type="1">Коммунальные услуги</category>
+		<category type="1">Коммунальные услуги: Интернет</category>
+		<category type="1">Коммунальные услуги: Квартира</category>
+		<category type="1">Коммунальные услуги: Свет</category>
+		<category type="1">Коммунальные услуги: Сотовый телефон</category>
+		<category type="1">Коммунальные услуги: Телефон стац.</category>
+		<category type="1">Косметика</category>
+		<category type="1">Литература/газеты/журналы</category>
+		<category type="1">Медицина</category>
+		<category type="1">Медицина: Лекарства</category>
+		<category type="1">Медицина: Лечение</category>
+		<category type="1">Обучение</category>
+		<category type="1">Одежда/обувь</category>
+		<category type="1">Парикмахерские/косметические услуги</category>
+		<category type="1">Питание</category>
+		<category type="1">Питание: Кафе/рестораны</category>
+		<category type="1">Питание: Обеды</category>
+		<category type="1">Питание: Продукты</category>
+		<category type="1">Подарки</category>
+		<category type="1">Подарки</category>
+		<category type="1">Предметы туалета</category>
+		<category type="1">Прочие/неизвестные расходы</category>
+		<category type="1">Путешествия</category>
+		<category type="1">Путешествия: Авиабилеты</category>
+		<category type="1">Путешествия: Автобусные билеты</category>
+		<category type="1">Путешествия: Визы/страховка</category>
+		<category type="1">Путешествия: Ж/Д билеты</category>
+		<category type="1">Путешествия: Питание</category>
+		<category type="1">Путешествия: Покупки</category>
+		<category type="1">Путешествия: Проживание</category>
+		<category type="1">Путешествия: Прочее</category>
+		<category type="1">Путешествия: Путевки</category>
+		<category type="1">Путешествия: Развлечения</category>
+		<category type="1">Путешествия: Транспорт</category>
+		<category type="1">Развлечение</category>
+		<category type="1">Рукоделие</category>
+		<category type="1">Семейные расходы</category>
+		<category type="1">Спортзал</category>
+		<category type="1">Транспорт</category>
+		<category type="1">Транспорт: Автомобиль</category>
+		<category type="1">Транспорт: Автомобиль: Аксессуары</category>
+		<category type="1">Транспорт: Автомобиль: Бензин</category>
+		<category type="1">Транспорт: Автомобиль: Запчасти</category>
+		<category type="1">Транспорт: Автомобиль: Обслуживание</category>
+		<category type="1">Транспорт: Автомобиль: Прочее</category>
+		<category type="1">Транспорт: Автомобиль: Рассрочка</category>
+		<category type="1">Транспорт: Автомобиль: Штрафы</category>
+		<category type="1">Транспорт: Общественный транспорт</category>
+		<category type="1">Хозяйственные товары</category>
+		<category type="1">Школа</category>
+		<category type="1">Школа: Канцелярия/литература</category>
+		<category type="1">Школа: Питание</category>
+		<category type="1">Школа: Прочее</category>
+	</family_categories>
+	<family_contragents>
+		<contragent>Авиакомпания "Россия"</contragent>
+		<contragent>Банк Тинькофф</contragent>
+		<contragent>ВТБ24</contragent>
+		<contragent>Газукин Денис</contragent>
+		<contragent>ЛЕНТА</contragent>
+		<contragent>Липин Антон</contragent>
+		<contragent>МТС</contragent>
+		<contragent>Магазины - PRISMA</contragent>
+		<contragent>Магазины - АШАН</contragent>
+		<contragent>Магазины - ИКЕА</contragent>
+		<contragent>Магазины - ЛЕНТА</contragent>
+		<contragent>Магазины - ОКЕЙ</contragent>
+		<contragent>Магазины - Прочие</contragent>
+		<contragent>Магазины - РЕАЛ</contragent>
+		<contragent>Метрополитен</contragent>
+		<contragent>ПСКБ</contragent>
+		<contragent>Унисенсор</contragent>
+	</family_contragents>
 </settings>
