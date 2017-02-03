@@ -47,15 +47,15 @@ namespace FamilyConverter
                         OperTime = DateTime.ParseExact(str[0], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                         AcceptTime = String.IsNullOrEmpty(str[1]) ? null : (DateTime?)DateTime.ParseExact(str[1], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                         CardMask = str[2],
-                        Type = (Decimal.Parse(str[4]) < 0) ? TransactionEntryType.Expense : TransactionEntryType.Income,
-                        OperAmount = Math.Abs(Decimal.Parse(str[4])),
+                        Type = (Decimal.Parse(str[4], Nfi) < 0) ? TransactionEntryType.Expense : TransactionEntryType.Income,
+                        OperAmount = Math.Abs(Decimal.Parse(str[4], Nfi)),
                         OperCurrency = str[5],
                         AcceptAmount = Math.Abs(Decimal.Parse(str[6])),
                         AcceptCurrency = str[7],
                         Category = str[8],
                         MCC = str[9],
                         OperLocation = str[10],
-                        CashBackSum = Decimal.Parse(str[11])
+                        CashBackSum = Decimal.Parse(str[11], Nfi)
                     };
 
                     TransList.Add(TransEntry);

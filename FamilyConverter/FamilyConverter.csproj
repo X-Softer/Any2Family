@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BSPB\BSPBTLConverter.cs" />
+    <Compile Include="BSPB\BSPBTransactionEntry.cs" />
+    <Compile Include="BSPB\BSPBTransactionReader.cs" />
     <Compile Include="FamilyCategory.cs" />
     <Compile Include="FileTransactionReader.cs" />
     <Compile Include="TLConverterSettings.cs" />

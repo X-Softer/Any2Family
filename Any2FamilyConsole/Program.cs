@@ -48,6 +48,12 @@ namespace Any2FamilyConsole
                             TransListConverter = new TinkoffTLConverter(Settings.TLSettings);
                             break;
                         }
+                    case 2:
+                        {
+                            TransReader = new BSPBTransactionReader(fn);
+                            TransListConverter = new BSPBTLConverter(Settings.TLSettings);
+                            break;
+                        }
                     default:
                         {
                             throw new Exception("Неизвестный тип конвертера данных");

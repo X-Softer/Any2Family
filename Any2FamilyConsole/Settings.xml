@@ -15,15 +15,15 @@
 			<target_property name="Contragent">Магазины - ЛЕНТА</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
-			<source_property name="OperLocation">ИКЕА</source_property>
+			<source_property name="OperLocation">r((ИКЕА)|(IKEA))</source_property>
 			<target_property name="Contragent">Магазины - ИКЕА</target_property>
 		</mapping_rule>
-		<mapping_rule converter="*">
-			<source_property name="OperLocation">Ашан</source_property>
+    <mapping_rule converter="*">
+			<source_property name="OperLocation">r((AUCHAN)|(Ашан))</source_property>
 			<target_property name="Comment">РАЗНЕСТИ ЧЕК!</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
-			<source_property name="OperLocation">Ашан</source_property>
+			<source_property name="OperLocation">r((AUCHAN)|(Ашан))</source_property>
 			<target_property name="Contragent">Магазины - АШАН</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
@@ -34,24 +34,28 @@
 			<source_property name="Category">Аптеки</source_property>
 			<target_property name="Category">Медицина: Лекарства</target_property>
 		</mapping_rule>
+    <mapping_rule converter="*">
+			<source_property name="OperLocation">r((APTEKA)|(Аптека)|(APTECA))</source_property>
+			<target_property name="Category">Медицина: Лекарства</target_property>
+		</mapping_rule>
 		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">IP GUDKOVA M.V</source_property>
 			<target_property name="Category">Питание: Обеды</target_property>
 		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">KEDR</source_property>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">r((KEDR)|(DIXY)|(SEMYA)|(PYATEROCHKA)|(Пятерочка)|(Дикси)|(PRISMA))</source_property>
 			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Дикси</source_property>
-			<target_property name="Category">Питание: Продукты</target_property>
+    <mapping_rule converter="*">
+			<source_property name="OperLocation">r((ULYBKA RADUGI)|(Улыбка радуги)|(ZOLUSHKA)|(Золушка))</source_property>
+			<target_property name="Category">Хозяйственные товары</target_property>
+		</mapping_rule>
+    <mapping_rule converter="*">
+			<source_property name="OperLocation">r((YARKII MIR RUKODELIJA)|(LEONARDO))</source_property>
+			<target_property name="Category">Рукоделие</target_property>
 		</mapping_rule>
 		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">7Я семьЯ</source_property>
-			<target_property name="Category">Питание: Продукты</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Пятерочка</source_property>
 			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
 		<mapping_rule converter="Tinkoff">
@@ -102,13 +106,21 @@
 			<source_property name="Category">Наличные</source_property>
 			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
 		</mapping_rule>
-    <mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">PRISMA</source_property>
+    <mapping_rule converter="*">
+			<source_property name="OperLocation">r(PRISMA)</source_property>
 			<target_property name="Contragent">Магазины - PRISMA</target_property>
 		</mapping_rule>
-    <mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">PRISMA</source_property>
-			<target_property name="Category">Питание: Продукты</target_property>
+    <mapping_rule converter="BSPB">
+			<source_property name="Category">r(Выдача наличных денег)</source_property>
+			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
+		</mapping_rule>
+    <mapping_rule converter="BSPB">
+			<source_property name="Category">r(Выдача наличных денег)</source_property>
+			<target_property name="Category">Перевод денег: На "Наличные Наташи"</target_property>
+		</mapping_rule>
+    <mapping_rule converter="BSPB">
+			<source_property name="Category">r(Зачисление зарплаты)</source_property>
+			<target_property name="Category">Заработок: Зарплата Дет. сад 355</target_property>
 		</mapping_rule>
 	</mapping_rules>
   <family_categories>
