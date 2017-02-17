@@ -20,8 +20,8 @@ namespace FamilyConverter
             Nfi.CurrencyDecimalSeparator = ",";
             Nfi.NumberGroupSeparator = "";
             Nfi.NumberDecimalSeparator = ",";
-            Nfi.CurrencyDecimalDigits = 4;
-            Nfi.NumberDecimalDigits = 4;
+            Nfi.CurrencyDecimalDigits = 2;
+            Nfi.NumberDecimalDigits = 2;
         }
 
         public override IEnumerable<TransactionEntry> ReadTransactions()
@@ -41,6 +41,12 @@ namespace FamilyConverter
 
                     str = str.Select(x => DeQuote(x)).Select(x => UnMaskQuotes(x)).ToArray();
 
+                    // Pass header
+                    if(Regex.IsMatch(str[0], "Дата", RegexOptions.IgnoreCase))
+                    {
+                        continue;
+                    }
+
                     TinkoffTransactionEntry TransEntry = new TinkoffTransactionEntry()
                     {
                         Id = tId.ToString(), 
@@ -50,12 +56,13 @@ namespace FamilyConverter
                         Type = (Decimal.Parse(str[4], Nfi) < 0) ? TransactionEntryType.Expense : TransactionEntryType.Income,
                         OperAmount = Math.Abs(Decimal.Parse(str[4], Nfi)),
                         OperCurrency = str[5],
-                        AcceptAmount = Math.Abs(Decimal.Parse(str[6])),
+                        AcceptAmount = Math.Abs(Decimal.Parse(str[6], Nfi)),
                         AcceptCurrency = str[7],
-                        Category = str[8],
-                        MCC = str[9],
-                        OperLocation = str[10],
-                        CashBackSum = Decimal.Parse(str[11], Nfi)
+                        CashBackSum = String.IsNullOrEmpty(str[8]) ? 0 : Decimal.Parse(str[8], Nfi),
+                        Category = str[9],
+                        MCC = str[10],
+                        OperLocation = str[11],
+                        TotalBonusesSum = Decimal.Parse(str[12], Nfi)
                     };
 
                     TransList.Add(TransEntry);

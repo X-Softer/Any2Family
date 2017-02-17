@@ -11,6 +11,7 @@ namespace FamilyConverter
         public string CardMask { get; set; }
         public string MCC { get; set; }
         public decimal CashBackSum { get; set; }
+        public decimal TotalBonusesSum { get; set; }
 
         public override string ToString()
         {
