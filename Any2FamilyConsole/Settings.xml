@@ -3,15 +3,15 @@
 	<default_value field_name="Category"></default_value>
 	<mapping_rules>
 		<mapping_rule converter="*">
-			<source_property name="OperLocation">r((AUCHAN)|(Ашан)|(LENTA)|(OKEY)|(ОКЕЙ)|(О'КЕЙ)|(Лента)|(ЛЕНТА))</source_property>
-			<target_property name="Comment">--- РАЗНЕСТИ ЧЕК! ---</target_property>
+			<source_property name="OperLocation">LENTA</source_property>
+			<target_property name="Comment">РАЗНЕСТИ ЧЕК!</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
-			<source_property name="OperLocation">r((AUCHAN)|(Ашан)|(LENTA)|(OKEY)|(ОКЕЙ)|(О'КЕЙ)|(Лента)|(ЛЕНТА))</source_property>
+			<source_property name="OperLocation">LENTA</source_property>
 			<target_property name="Category">Прочие/неизвестные расходы</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
-			<source_property name="OperLocation">r((LENTA)|(Лента)|(ЛЕНТА))</source_property>
+			<source_property name="OperLocation">LENTA</source_property>
 			<target_property name="Contragent">Магазины - ЛЕНТА</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
@@ -20,15 +20,15 @@
 		</mapping_rule>
 		<mapping_rule converter="*">
 			<source_property name="OperLocation">r((AUCHAN)|(Ашан))</source_property>
+			<target_property name="Comment">РАЗНЕСТИ ЧЕК!</target_property>
+		</mapping_rule>
+		<mapping_rule converter="*">
+			<source_property name="OperLocation">r((AUCHAN)|(Ашан))</source_property>
 			<target_property name="Contragent">Магазины - АШАН</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
-			<source_property name="OperLocation">r((OKEY)|(ОКЕЙ)|(О'КЕЙ))</source_property>
-			<target_property name="Contragent">Магазины - ОКЕЙ</target_property>
-		</mapping_rule>
-		<mapping_rule converter="*">
-			<source_property name="Category">r(Мед\. услуги)</source_property>
-			<target_property name="Category">Медицина: Лечение</target_property>
+			<source_property name="OperLocation">Ашан</source_property>
+			<target_property name="Category">Прочие/неизвестные расходы</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
 			<source_property name="Category">Аптеки</source_property>
@@ -38,28 +38,12 @@
 			<source_property name="OperLocation">r((APTEKA)|(Аптека)|(APTECA))</source_property>
 			<target_property name="Category">Медицина: Лекарства</target_property>
 		</mapping_rule>
-		<mapping_rule converter="*">
-			<source_property name="OperLocation">r((IP GUDKOVA M.V)|(STOPEKSPRESS)|(DILIZHANS)|(MINUTA MARKET)|(DAVEGO)|(OLIVA)|(STOLOVAYA)|(TAKE 5))</source_property>
+		<mapping_rule converter="Tinkoff">
+			<source_property name="OperLocation">IP GUDKOVA M.V</source_property>
 			<target_property name="Category">Питание: Обеды</target_property>
 		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">r(Мой \(МТС\))</source_property>
-			<target_property name="Category">Коммунальные услуги: Сотовый телефон</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Плата за оповещения об операциях</source_property>
-			<target_property name="Category">Прочие</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Вознаграждение за операции покупок</source_property>
-			<target_property name="Category">Прочие</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Проценты на остаток по счету</source_property>
-			<target_property name="Category">Прочие</target_property>
-		</mapping_rule>
 		<mapping_rule converter="*">
-			<source_property name="OperLocation">r((KEDR)|(DIXY)|(SEMYA)|(PYATEROCHKA)|(Пятерочка)|(Дикси)|(PRISMA)|(SPAR)|(PRODUKTY 24))</source_property>
+			<source_property name="OperLocation">r((KEDR)|(DIXY)|(SEMYA)|(PYATEROCHKA)|(Пятерочка)|(Дикси)|(PRISMA))</source_property>
 			<target_property name="Category">Питание: Продукты</target_property>
 		</mapping_rule>
 		<mapping_rule converter="*">
@@ -69,10 +53,6 @@
 		<mapping_rule converter="*">
 			<source_property name="OperLocation">r((YARKII MIR RUKODELIJA)|(LEONARDO))</source_property>
 			<target_property name="Category">Рукоделие</target_property>
-		</mapping_rule>
-		<mapping_rule converter="*">
-			<source_property name="OperLocation">r(MCDONALDS)</source_property>
-			<target_property name="Category">Питание: Кафе/рестораны</target_property>
 		</mapping_rule>
 		<mapping_rule converter="Tinkoff">
 			<source_property name="OperLocation">7Я семьЯ</source_property>
@@ -94,79 +74,11 @@
 			<source_property name="Category">Транспорт</source_property>
 			<target_property name="Category">Транспорт: Общественный транспорт</target_property>
 		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Пополнение через МОСКОВСКИЙ ФИЛИАЛ АО БАНК "ПСКБ"</source_property>
-			<target_property name="Category">Перевод денег: Из "ПСКБ Зарплатный"</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Пополнение через МОСКОВСКИЙ ФИЛИАЛ АО БАНК "ПСКБ"</source_property>
-			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Пополнение Накопительный счет</source_property>
-			<target_property name="Category">Перевод денег: На "Тинькофф - Сейф"</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Пополнение Накопительный счет</source_property>
-			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Пополнение Накопительный счет</source_property>
-			<target_property name="Category">Перевод денег: На "Тинькофф - Сейф"</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">Пополнение Накопительный счет</source_property>
-			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">r(Автокредит)</source_property>
-			<target_property name="Category">Перевод денег: На "АвтоКредит"</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="OperLocation">r(Автокредит)</source_property>
-			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="Category">Наличные</source_property>
-			<target_property name="Category">Перевод денег: На "Наличные"</target_property>
-		</mapping_rule>
-		<mapping_rule converter="Tinkoff">
-			<source_property name="Category">Наличные</source_property>
-			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
-		</mapping_rule>
-		<mapping_rule converter="*">
-			<source_property name="OperLocation">r(PRISMA)</source_property>
-			<target_property name="Contragent">Магазины - PRISMA</target_property>
-		</mapping_rule>
-		<mapping_rule converter="BSPB">
-			<source_property name="Category">r(Выдача наличных денег)</source_property>
-			<target_property name="Contragent">&lt;Служебный&gt;</target_property>
-		</mapping_rule>
-		<mapping_rule converter="BSPB">
-			<source_property name="Category">r(Выдача наличных денег)</source_property>
-			<target_property name="Category">Перевод денег: На "Наличные Наташи"</target_property>
-		</mapping_rule>
-		<mapping_rule converter="BSPB">
-			<source_property name="Category">r(Зачисление зарплаты)</source_property>
-			<target_property name="Category">Заработок: Зарплата Дет. сад 355</target_property>
-		</mapping_rule>
-		<mapping_rule converter="BSPB">
-			<source_property name="Category">r(Оплата за телефон)</source_property>
-			<target_property name="Category">Коммунальные услуги: Сотовый телефон</target_property>
-		</mapping_rule>
-		<mapping_rule converter="BSPB">
-			<source_property name="Category">r(Комиссия по услуге SMS)</source_property>
-			<target_property name="Category">Банковские услуги</target_property>
-		</mapping_rule>
 	</mapping_rules>
 	<family_categories>
 		<category type="2">Детские пособия</category>
 		<category type="2">Заработок</category>
-		<category type="2">Заработок: Зарплата Дет. сад 355</category>
-		<category type="2">Заработок: Зарплата ПСКБ</category>
-		<category type="2">Заработок: Зарплата Унисенсор</category>
 		<category type="2">Заработок: Премия</category>
-		<category type="2">Заработок: Халтура Денис</category>
 		<category type="2">Подарки (доход)</category>
 		<category type="2">Прочие</category>
 		<category type="1">Бытовая/комп. техника</category>
@@ -199,7 +111,6 @@
 		<category type="1">Питание: Кафе/рестораны</category>
 		<category type="1">Питание: Обеды</category>
 		<category type="1">Питание: Продукты</category>
-		<category type="1">Подарки</category>
 		<category type="1">Подарки</category>
 		<category type="1">Предметы туалета</category>
 		<category type="1">Прочие/неизвестные расходы</category>
@@ -236,13 +147,6 @@
 		<category type="1">Школа: Прочее</category>
 	</family_categories>
 	<family_contragents>
-		<contragent>Авиакомпания "Россия"</contragent>
-		<contragent>Банк Тинькофф</contragent>
-		<contragent>ВТБ24</contragent>
-		<contragent>Газукин Денис</contragent>
-		<contragent>ЛЕНТА</contragent>
-		<contragent>Липин Антон</contragent>
-		<contragent>МТС</contragent>
 		<contragent>Магазины - PRISMA</contragent>
 		<contragent>Магазины - АШАН</contragent>
 		<contragent>Магазины - ИКЕА</contragent>
@@ -250,8 +154,5 @@
 		<contragent>Магазины - ОКЕЙ</contragent>
 		<contragent>Магазины - Прочие</contragent>
 		<contragent>Магазины - РЕАЛ</contragent>
-		<contragent>Метрополитен</contragent>
-		<contragent>ПСКБ</contragent>
-		<contragent>Унисенсор</contragent>
 	</family_contragents>
 </settings>
