@@ -86,7 +86,7 @@ namespace FamilyConverter
                 TransEntry.OperLocation = row.Cells[2].StringCellValue;
 
                 // Parse operation describe
-                Match CatMatch = Regex.Match(row.Cells[3].StringCellValue, @"(.+) (\d{2}.\d{2}.\d{4} \d{2}:\d{2}) (.+) (\*\d{4})");
+                Match CatMatch = Regex.Match(row.Cells[3].StringCellValue, @"([\w\W.]+) (\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}) (.+) (\*\d{4})");
                 if(CatMatch.Groups.Count >= 4)
                 {
                     TransEntry.Category = CatMatch.Groups[1].Value;

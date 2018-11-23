@@ -47,11 +47,13 @@ namespace FamilyConverter
                         continue;
                     }
 
+                    string[] dateFormats = {"dd.MM.yyyy HH:mm:ss", "dd.MM.yyyy"};
+
                     TinkoffTransactionEntry TransEntry = new TinkoffTransactionEntry()
                     {
                         Id = tId.ToString(), 
                         OperTime = DateTime.ParseExact(str[0], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),
-                        AcceptTime = String.IsNullOrEmpty(str[1]) ? null : (DateTime?)DateTime.ParseExact(str[1], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),
+                        AcceptTime = String.IsNullOrEmpty(str[1]) ? null : (DateTime?)DateTime.ParseExact(str[1], dateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None),
                         CardMask = str[2],
                         Type = (Decimal.Parse(str[4], Nfi) < 0) ? TransactionEntryType.Expense : TransactionEntryType.Income,
                         OperAmount = Math.Abs(Decimal.Parse(str[4], Nfi)),
