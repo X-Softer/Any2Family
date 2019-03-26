@@ -72,6 +72,7 @@
     <Content Include="Settings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Settings_cleared.xml" />
     <Content Include="Settings_my.xml" />
   </ItemGroup>
   <ItemGroup>
