@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Xml;
-using System.Xml.Linq;
-using System.Threading.Tasks;
-
 using FamilyConverter;
 
 namespace Any2FamilyConsole
 {
     class Program
     {
-        const string SettingsFileName = "Settings.xml"; // Settings filename
-        static ProgramSettings Settings;
+        private const string SettingsFileName = "Settings.xml"; // Settings filename
+        private static ProgramSettings _settings;
 
         static void Main(string[] args)
         {
@@ -32,26 +25,26 @@ namespace Any2FamilyConsole
                 
                 string fn = args[1];
 
-                int ConvType = Convert.ToInt32(args[0]);
+                int convType = Convert.ToInt32(args[0]);
 
                 // Load settings
-                Settings = ProgramSettings.Create(SettingsFileName);
+                _settings = ProgramSettings.Create(SettingsFileName);
                 
                 // Choose reader and converter
-                ITransactionReader TransReader;
-                ITLConverter TransListConverter;
-                switch (ConvType)
+                ITransactionReader transReader;
+                ITLConverter transListConverter;
+                switch (convType)
                 {
                     case 1:
                         {
-                            TransReader = new TinkoffTransactionReader(fn);
-                            TransListConverter = new TinkoffTLConverter(Settings.TLSettings);
+                            transReader = new TinkoffTransactionReader(fn);
+                            transListConverter = new TinkoffTLConverter(_settings.TLSettings);
                             break;
                         }
                     case 2:
                         {
-                            TransReader = new BSPBTransactionReader(fn);
-                            TransListConverter = new BSPBTLConverter(Settings.TLSettings);
+                            transReader = new BSPBTransactionReader(fn);
+                            transListConverter = new BSPBTLConverter(_settings.TLSettings);
                             break;
                         }
                     default:
@@ -60,34 +53,33 @@ namespace Any2FamilyConsole
                         }
                 }
 
-                string out_fn = $"{TransListConverter.Name}_converted_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.xls";
+                string outFn = $"{transListConverter.Name}_converted_{DateTime.Now:yyyyMMdd_HHmmss}.xls";
                 if (args.Length >= 3)
                 {
-                    out_fn = args[2];
+                    outFn = args[2];
                 }
 
                 // Load transactions
                 Console.WriteLine($"Загружаем транзакции из файла: {fn} ...");
-                IEnumerable<TransactionEntry> ReadedTransactions = TransReader.ReadTransactions();
-                Console.WriteLine($"Загружено {ReadedTransactions.Count()} транзакций");
+                var readedTransactions = transReader.ReadTransactions().ToList();
+                Console.WriteLine($"Загружено {readedTransactions.Count()} транзакций");
 
                 // Convert transactions
                 Console.WriteLine($"Конвертируем транзакции ...");
-                IEnumerable<FamilyTransactionEntry> FamilyTransactions = TransListConverter.Convert(ReadedTransactions);
-                Console.WriteLine($"Сконвертировано {FamilyTransactions.Count()} транзакций");
+                var familyTransactions = transListConverter.Convert(readedTransactions).ToList();
+                Console.WriteLine($"Сконвертировано {familyTransactions.Count()} транзакций");
 
                 // Analyze transactions
-                AnalizeTransactionsList(FamilyTransactions);
+                AnalizeTransactionsList(familyTransactions);
 
                 // Save transaction to Family11 format
-                IFamilySaver fs = new XLSFamilySaver(out_fn);
-                Console.WriteLine($"Сохраняем транзакции в файл: {out_fn} ...");
-                fs.SaveTransactions(FamilyTransactions);
+                IFamilySaver fs = new XLSFamilySaver(outFn);
+                Console.WriteLine($"Сохраняем транзакции в файл: {outFn} ...");
+                fs.SaveTransactions(familyTransactions);
                 Console.WriteLine("Файл сохранен");
 
                 // Save settings to file
-                //SaveSettings(SettingsFileName);
-                Settings.Save();
+                _settings.Save();
 
                 Console.WriteLine("\nPress any key ...");
                 Console.ReadKey();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FamilyConverter
 {
@@ -10,18 +6,12 @@ namespace FamilyConverter
     {
         protected string FileName;
 
-        public FileFamilySaver(string file_name)
+        protected FileFamilySaver(string fileName)
         {
-            FileName = file_name;
+            FileName = fileName;
         }
 
-        public string Name
-        {
-            get
-            {
-                return "AbstractFileSaver";   
-            }
-        }
+        public string Name => "AbstractFileSaver";
 
         public abstract void SaveTransactions(IEnumerable<FamilyTransactionEntry> transactions);
     }

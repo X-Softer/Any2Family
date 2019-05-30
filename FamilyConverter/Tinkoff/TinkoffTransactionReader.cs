@@ -4,31 +4,30 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FamilyConverter
 {
     public class TinkoffTransactionReader : FileTransactionReader
     {
-        private NumberFormatInfo Nfi = new NumberFormatInfo();
+        private readonly NumberFormatInfo _nfi = new NumberFormatInfo();
 
-        public TinkoffTransactionReader(string file_name)
-            :base(file_name)
+        public TinkoffTransactionReader(string fileName)
+            :base(fileName)
         {
-            FileName = file_name;
-            Nfi.CurrencyGroupSeparator = "";
-            Nfi.CurrencyDecimalSeparator = ",";
-            Nfi.NumberGroupSeparator = "";
-            Nfi.NumberDecimalSeparator = ",";
-            Nfi.CurrencyDecimalDigits = 2;
-            Nfi.NumberDecimalDigits = 2;
+            FileName = fileName;
+            _nfi.CurrencyGroupSeparator = "";
+            _nfi.CurrencyDecimalSeparator = ",";
+            _nfi.NumberGroupSeparator = "";
+            _nfi.NumberDecimalSeparator = ",";
+            _nfi.CurrencyDecimalDigits = 2;
+            _nfi.NumberDecimalDigits = 2;
         }
 
         public override IEnumerable<TransactionEntry> ReadTransactions()
         {
-            List<TransactionEntry> TransList = new List<TransactionEntry>();
+            List<TransactionEntry> transList = new List<TransactionEntry>();
 
-            using (SCVReader csvr = new SCVReader(FileName, Encoding.GetEncoding("windows-1251")))
+            using (CSVReader csvr = new CSVReader(FileName, Encoding.GetEncoding("windows-1251")))
             {
                 int tId = 1;
                 string[] str;
@@ -39,7 +38,7 @@ namespace FamilyConverter
                         throw new Exception("File Format Error, not enough colums!");
                     }
 
-                    str = str.Select(x => DeQuote(x)).Select(x => UnMaskQuotes(x)).ToArray();
+                    str = str.Select(DeQuote).Select(UnMaskQuotes).ToArray();
 
                     // Pass header
                     if(Regex.IsMatch(str[0], "Дата", RegexOptions.IgnoreCase))
@@ -49,30 +48,30 @@ namespace FamilyConverter
 
                     string[] dateFormats = {"dd.MM.yyyy HH:mm:ss", "dd.MM.yyyy"};
 
-                    TinkoffTransactionEntry TransEntry = new TinkoffTransactionEntry()
+                    TinkoffTransactionEntry transEntry = new TinkoffTransactionEntry()
                     {
                         Id = tId.ToString(), 
                         OperTime = DateTime.ParseExact(str[0], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),
                         AcceptTime = String.IsNullOrEmpty(str[1]) ? null : (DateTime?)DateTime.ParseExact(str[1], dateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None),
                         CardMask = str[2],
-                        Type = (Decimal.Parse(str[4], Nfi) < 0) ? TransactionEntryType.Expense : TransactionEntryType.Income,
-                        OperAmount = Math.Abs(Decimal.Parse(str[4], Nfi)),
+                        Type = (Decimal.Parse(str[4], _nfi) < 0) ? TransactionEntryType.Expense : TransactionEntryType.Income,
+                        OperAmount = Math.Abs(Decimal.Parse(str[4], _nfi)),
                         OperCurrency = str[5],
-                        AcceptAmount = Math.Abs(Decimal.Parse(str[6], Nfi)),
+                        AcceptAmount = Math.Abs(Decimal.Parse(str[6], _nfi)),
                         AcceptCurrency = str[7],
-                        CashBackSum = String.IsNullOrEmpty(str[8]) ? 0 : Decimal.Parse(str[8], Nfi),
+                        CashBackSum = String.IsNullOrEmpty(str[8]) ? 0 : Decimal.Parse(str[8], _nfi),
                         Category = str[9],
                         MCC = str[10],
                         OperLocation = str[11],
-                        TotalBonusesSum = Decimal.Parse(str[12], Nfi)
+                        TotalBonusesSum = Decimal.Parse(str[12], _nfi)
                     };
 
-                    TransList.Add(TransEntry);
+                    transList.Add(transEntry);
                     tId++;
                 }
             }
 
-            return TransList;
+            return transList;
         }
 
         private string DeQuote(string str)

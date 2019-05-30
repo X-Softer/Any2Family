@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
@@ -15,47 +12,44 @@ namespace FamilyConverter
 {
     public class BSPBTransactionReader : FileTransactionReader
     {
-        private NumberFormatInfo Nfi = new NumberFormatInfo();
+        private readonly NumberFormatInfo _nfi = new NumberFormatInfo();
 
-        public BSPBTransactionReader(string file_name)
-            :base(file_name)
+        public BSPBTransactionReader(string fileName)
+            :base(fileName)
         {
-            FileName = file_name;
-            Nfi.CurrencyGroupSeparator = "";
-            Nfi.CurrencyDecimalSeparator = ",";
-            Nfi.NumberGroupSeparator = "";
-            Nfi.NumberDecimalSeparator = ",";
-            Nfi.CurrencyDecimalDigits = 4;
-            Nfi.NumberDecimalDigits = 4;
+            FileName = fileName;
+            _nfi.CurrencyGroupSeparator = "";
+            _nfi.CurrencyDecimalSeparator = ",";
+            _nfi.NumberGroupSeparator = "";
+            _nfi.NumberDecimalSeparator = ",";
+            _nfi.CurrencyDecimalDigits = 4;
+            _nfi.NumberDecimalDigits = 4;
         }
 
         public override IEnumerable<TransactionEntry> ReadTransactions()
         {
-            List<TransactionEntry> TransList = new List<TransactionEntry>();
+            List<TransactionEntry> transList = new List<TransactionEntry>();
 
-            IWorkbook InputWB;
-            int RowTotal = 0;
             System.Collections.IEnumerator rows;
 
             try
             {
+                IWorkbook inputWb;
                 using (FileStream file = new FileStream(FileName, FileMode.Open, FileAccess.Read))
                 {
                     var fileExt = Path.GetExtension(FileName);
                     if (fileExt == ".xls")
                     {
-                        InputWB = new HSSFWorkbook(file);
+                        inputWb = new HSSFWorkbook(file);
                     }
                     else
                     {
-                        InputWB = new XSSFWorkbook(file);
+                        inputWb = new XSSFWorkbook(file);
                     }
                 }
 
-                ISheet sheet = InputWB.GetSheetAt(0);
+                ISheet sheet = inputWb.GetSheetAt(0);
                 rows = sheet.GetRowEnumerator();
-                RowTotal = sheet.LastRowNum;
-
             }
             catch (Exception ex)
             {
@@ -68,47 +62,47 @@ namespace FamilyConverter
             {
                 IRow row = (IRow)rows.Current;
 
-                string AcceptDatePattern = @"^\d{2}\.\d{2}\.\d{4}$";
+                string acceptDatePattern = @"^\d{2}\.\d{2}\.\d{4}$";
 
                 // Pass header and footer
-                if (row.Cells.Count == 0 || !Regex.IsMatch(row.Cells[0].StringCellValue.Trim(), AcceptDatePattern))
+                if (row.Cells.Count == 0 || !Regex.IsMatch(row.Cells[0].StringCellValue.Trim(), acceptDatePattern))
                 {
                     continue;
                 }
 
-                string AcceptDateStr = Regex.Match(row.Cells[0].StringCellValue.Trim(), AcceptDatePattern).Value;
+                string acceptDateStr = Regex.Match(row.Cells[0].StringCellValue.Trim(), acceptDatePattern).Value;
 
-                BSPBTransactionEntry TransEntry = new BSPBTransactionEntry();
-                TransEntry.Id = tId.ToString();
-                TransEntry.AcceptTime = DateTime.ParseExact(AcceptDateStr, "dd.MM.yyyy", CultureInfo.InvariantCulture);
-                TransEntry.Account = row.Cells[1].StringCellValue;
-                TransEntry.OperCurrency = TransEntry.AcceptCurrency = "RUB";
-                TransEntry.OperLocation = row.Cells[2].StringCellValue;
+                BSPBTransactionEntry transEntry = new BSPBTransactionEntry();
+                transEntry.Id = tId.ToString();
+                transEntry.AcceptTime = DateTime.ParseExact(acceptDateStr, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                transEntry.Account = row.Cells[1].StringCellValue;
+                transEntry.OperCurrency = transEntry.AcceptCurrency = "RUB";
+                transEntry.OperLocation = row.Cells[2].StringCellValue;
 
                 // Parse operation describe
-                Match CatMatch = Regex.Match(row.Cells[3].StringCellValue, @"([\w\W.]+) (\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}) (.+) (\*\d{4})");
-                if(CatMatch.Groups.Count >= 4)
+                Match catMatch = Regex.Match(row.Cells[3].StringCellValue, @"([\w\W.]+) (\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}) (.+) (\*\d{4})");
+                if(catMatch.Groups.Count >= 4)
                 {
-                    TransEntry.Category = CatMatch.Groups[1].Value;
-                    TransEntry.OperTime = DateTime.ParseExact(CatMatch.Groups[2].Value, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
-                    TransEntry.CardMask = CatMatch.Groups[4].Value;
+                    transEntry.Category = catMatch.Groups[1].Value;
+                    transEntry.OperTime = DateTime.ParseExact(catMatch.Groups[2].Value, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+                    transEntry.CardMask = catMatch.Groups[4].Value;
                 }
                 else
                 {
-                    TransEntry.Category = row.Cells[3].StringCellValue;
-                    TransEntry.OperTime = (DateTime)TransEntry.AcceptTime;
+                    transEntry.Category = row.Cells[3].StringCellValue;
+                    transEntry.OperTime = (DateTime)transEntry.AcceptTime;
                 }
 
-                decimal AcceptAmount = Convert.ToDecimal(row.Cells[4].NumericCellValue);
-                TransEntry.AcceptAmount = Math.Abs(AcceptAmount);
-                TransEntry.OperAmount = TransEntry.AcceptAmount;
-                TransEntry.Type = AcceptAmount < 0 ? TransactionEntryType.Expense : TransactionEntryType.Income;
+                decimal acceptAmount = Convert.ToDecimal(row.Cells[4].NumericCellValue);
+                transEntry.AcceptAmount = Math.Abs(acceptAmount);
+                transEntry.OperAmount = transEntry.AcceptAmount;
+                transEntry.Type = acceptAmount < 0 ? TransactionEntryType.Expense : TransactionEntryType.Income;
 
-                TransList.Add(TransEntry);
+                transList.Add(transEntry);
                 tId++;
             }
 
-            return TransList;
+            return transList;
         }
     }
 }

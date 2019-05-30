@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using FamilyConverter;
@@ -15,22 +14,22 @@ namespace Any2FamilyConsole
         public List<string> FamilyContragents { get; private set; }
         public TLConverterSettings TLSettings { get; private set; }
 
-        string FileName;
-        static ProgramSettings _instance;
+        private readonly string _fileName;
+        private static ProgramSettings _instance;
 
-        private ProgramSettings(string file_name, bool need_to_load)
+        private ProgramSettings(string fileName, bool needToLoad)
         {
-            FileName = file_name;
+            _fileName = fileName;
 
-            if(need_to_load)
+            if(needToLoad)
             {
                 Reload();
             }
         }
 
-        public static ProgramSettings Create(string file_name, bool need_to_load = true)
+        public static ProgramSettings Create(string fileName, bool needToLoad = true)
         {
-            _instance = _instance ?? new ProgramSettings(file_name, need_to_load);
+            _instance = _instance ?? new ProgramSettings(fileName, needToLoad);
             return _instance;
         }
 
@@ -53,7 +52,7 @@ namespace Any2FamilyConsole
             ws.NewLineChars = "\n";
             ws.Encoding = enc;
 
-            using (XmlWriter writer = XmlWriter.Create(FileName, ws))
+            using (XmlWriter writer = XmlWriter.Create(_fileName, ws))
             {
                 writer.WriteStartElement("settings");
                 WriteTLSettings(writer);
@@ -73,21 +72,24 @@ namespace Any2FamilyConsole
             TLSettings.DefaultCategory = null;
             TLSettings.MappingRules.Clear();
 
-            XDocument SettingsDoc = XDocument.Load(FileName);
+            XDocument settingsDoc = XDocument.Load(_fileName);
 
-            var DefaultValElements = SettingsDoc?.Element("settings")?.Descendants("default_value");
-            TLSettings.DefaultCategory = DefaultValElements?.Where(x => x.Attribute("field_name")?.Value == "Category").First().Value;
+            var defaultValElements = settingsDoc.Element("settings")?.Descendants("default_value");
+            TLSettings.DefaultCategory = defaultValElements?.Where(x => x.Attribute("field_name")?.Value == "Category").First().Value;
 
-            var MappingRulesElements = SettingsDoc?.Element("settings")?.Element("mapping_rules")?.Descendants("mapping_rule");
-            foreach (var mr_element in MappingRulesElements)
+            var mappingRulesElements = settingsDoc.Element("settings")?.Element("mapping_rules")?.Descendants("mapping_rule");
+            if (mappingRulesElements != null)
             {
-                MappingEntry me = new MappingEntry();
-                me.SourceName = mr_element.Attribute("converter")?.Value;
-                me.SourceEntryPropertyName = mr_element.Element("source_property").Attribute("name").Value;
-                me.SourceEntryPropertyValue = mr_element.Element("source_property").Value;
-                me.TargetEntryPropertyName = mr_element.Element("target_property").Attribute("name").Value;
-                me.TargetEntryPropertyValue = mr_element.Element("target_property").Value;
-                TLSettings.MappingRules.Add(me);
+                foreach (var mrElement in mappingRulesElements)
+                {
+                    MappingEntry me = new MappingEntry();
+                    me.SourceName = mrElement.Attribute("converter")?.Value;
+                    me.SourceEntryPropertyName = mrElement.Element("source_property")?.Attribute("name")?.Value;
+                    me.SourceEntryPropertyValue = mrElement.Element("source_property")?.Value;
+                    me.TargetEntryPropertyName = mrElement.Element("target_property")?.Attribute("name")?.Value;
+                    me.TargetEntryPropertyValue = mrElement.Element("target_property")?.Value;
+                    TLSettings.MappingRules.Add(me);
+                }
             }
         }
 
@@ -101,12 +103,12 @@ namespace Any2FamilyConsole
             }
             FamilyContragents.Clear();
 
-            XDocument SettingsDoc = XDocument.Load(FileName);
-            var ContragentElements = SettingsDoc?.Element("settings")?.Element("family_contragents")?.Descendants("contragent");
+            XDocument settingsDoc = XDocument.Load(_fileName);
+            var contragentElements = settingsDoc.Element("settings")?.Element("family_contragents")?.Descendants("contragent");
 
-            if (ContragentElements != null)
+            if (contragentElements != null)
             {
-                foreach (var contrElem in ContragentElements)
+                foreach (var contrElem in contragentElements)
                 {
                     FamilyContragents.Add(contrElem.Value);
                 }
@@ -122,16 +124,16 @@ namespace Any2FamilyConsole
             }
             FamilyCategories.Clear();
 
-            XDocument SettingsDoc = XDocument.Load(FileName);
-            var CategoryElements = SettingsDoc?.Element("settings")?.Element("family_categories")?.Descendants("category");
+            XDocument settingsDoc = XDocument.Load(_fileName);
+            var categoryElements = settingsDoc.Element("settings")?.Element("family_categories")?.Descendants("category");
 
-            if (CategoryElements != null)
+            if (categoryElements != null)
             {
-                foreach (var catElem in CategoryElements)
+                foreach (var catElem in categoryElements)
                 {
                     FamilyCategory cat = new FamilyCategory()
                     {
-                        Type = Int32.Parse(catElem.Attribute("type").Value),
+                        Type = Int32.Parse(catElem.Attribute("type")?.Value ?? throw new InvalidOperationException()),
                         Name = catElem.Value
                     };
 

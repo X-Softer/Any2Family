@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FamilyConverter
 {
@@ -12,36 +9,36 @@ namespace FamilyConverter
         {
         }
 
-        public override IEnumerable<FamilyTransactionEntry> Convert(IEnumerable<TransactionEntry> transaction_list)
+        public override IEnumerable<FamilyTransactionEntry> Convert(IEnumerable<TransactionEntry> transactionList)
         {
-            List<FamilyTransactionEntry> FList = new List<FamilyTransactionEntry>();
+            List<FamilyTransactionEntry> fList = new List<FamilyTransactionEntry>();
 
-            foreach(var transaction in transaction_list)
+            foreach(var transaction in transactionList)
             {
-                BSPBTransactionEntry TTran = transaction as BSPBTransactionEntry;
-                FamilyTransactionEntry FTran = new FamilyTransactionEntry()
+                BSPBTransactionEntry tran = (BSPBTransactionEntry)transaction;
+                FamilyTransactionEntry fTran = new FamilyTransactionEntry
                 {
-                    Id = TTran.Id,
-                    Date = TTran.OperTime,
-                    Sum = (TTran.Type == TransactionEntryType.Expense) ? (0 - TTran.OperAmount) : TTran.OperAmount,
+                    Id = tran.Id,
+                    Date = tran.OperTime,
+                    Sum = (tran.Type == TransactionEntryType.Expense) ? (0 - tran.OperAmount) : tran.OperAmount,
                 };
 
                 // Just for debug
-                FTran.Comment = TTran.OperLocation;
+                fTran.Comment = tran.OperLocation;
 
-                MapFields(nameof(TTran.Category), TTran.Category, FTran);
-                MapFields(nameof(TTran.OperLocation), TTran.OperLocation, FTran);
+                MapFields(nameof(tran.Category), tran.Category, fTran);
+                MapFields(nameof(tran.OperLocation), tran.OperLocation, fTran);
 
-                if (String.IsNullOrEmpty(FTran.Category))
+                if (String.IsNullOrEmpty(fTran.Category))
                 {
-                    FTran.Category = Settings.DefaultCategory;
+                    fTran.Category = Settings.DefaultCategory;
                     //FTran.Comment = TTran.OperLocation;
                 }
 
-                FList.Add(FTran);
+                fList.Add(fTran);
             }
 
-            return FList;
+            return fList;
         }
     }
 }

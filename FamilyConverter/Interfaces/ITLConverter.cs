@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FamilyConverter
 {
@@ -10,6 +6,6 @@ namespace FamilyConverter
     {
         string Name { get; }
         
-        IEnumerable<FamilyTransactionEntry> Convert(IEnumerable<TransactionEntry> transaction_list);
+        IEnumerable<FamilyTransactionEntry> Convert(IEnumerable<TransactionEntry> transactionList);
     }
 }
