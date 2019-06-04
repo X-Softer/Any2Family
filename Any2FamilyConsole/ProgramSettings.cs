@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -13,6 +14,8 @@ namespace Any2FamilyConsole
         public List<FamilyCategory> FamilyCategories { get; private set; }
         public List<string> FamilyContragents { get; private set; }
         public TLConverterSettings TLSettings { get; private set; }
+        public Bindings Bindings { get; }
+
 
         private readonly string _fileName;
         private static ProgramSettings _instance;
@@ -25,6 +28,10 @@ namespace Any2FamilyConsole
             {
                 Reload();
             }
+
+            Bindings = Bindings.Instance;
+            Bindings.Bind(1, typeof(TinkoffTransactionReader), typeof(TinkoffTLConverter));
+            Bindings.Bind(2, typeof(BSPBTransactionReader), typeof(BSPBTLConverter));
         }
 
         public static ProgramSettings Create(string fileName, bool needToLoad = true)
