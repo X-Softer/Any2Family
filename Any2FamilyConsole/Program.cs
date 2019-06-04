@@ -19,7 +19,7 @@ namespace Any2FamilyConsole
                     Console.WriteLine("\nUsage: any2familycon <type> <filename> [output filename]");
                     Console.WriteLine("\nTypes: 1 -  Tinkoff Bank CSV-file");
                     Console.WriteLine("       2 -  Bank SPB CSV-file");
-                    Console.WriteLine("       3 -  PSCB CSV-file");
+                    //Console.WriteLine("       3 -  PSCB CSV-file");
                     return;
                 }
                 
@@ -31,27 +31,8 @@ namespace Any2FamilyConsole
                 _settings = ProgramSettings.Create(SettingsFileName);
                 
                 // Choose reader and converter
-                ITransactionReader transReader;
-                ITLConverter transListConverter;
-                switch (convType)
-                {
-                    case 1:
-                        {
-                            transReader = new TinkoffTransactionReader(fn);
-                            transListConverter = new TinkoffTLConverter(_settings.TLSettings);
-                            break;
-                        }
-                    case 2:
-                        {
-                            transReader = new BSPBTransactionReader(fn);
-                            transListConverter = new BSPBTLConverter(_settings.TLSettings);
-                            break;
-                        }
-                    default:
-                        {
-                            throw new Exception("Неизвестный тип конвертера данных");
-                        }
-                }
+                ITransactionReader transReader = TransactionReadersFactory.GetTransactionReader(convType, _settings.Bindings, fn);
+                ITLConverter transListConverter = TLConvertersFactory.GetTLConverter(convType, _settings.Bindings, _settings.TLSettings);
 
                 string outFn = $"{transListConverter.Name}_converted_{DateTime.Now:yyyyMMdd_HHmmss}.xls";
                 if (args.Length >= 3)
@@ -60,23 +41,23 @@ namespace Any2FamilyConsole
                 }
 
                 // Load transactions
-                Console.WriteLine($"Загружаем транзакции из файла: {fn} ...");
+                Console.WriteLine($"Loading transactions from file: {fn}...");
                 var readedTransactions = transReader.ReadTransactions().ToList();
-                Console.WriteLine($"Загружено {readedTransactions.Count()} транзакций");
+                Console.WriteLine($"{readedTransactions.Count} transactions loaded");
 
                 // Convert transactions
-                Console.WriteLine($"Конвертируем транзакции ...");
+                Console.WriteLine($"Converting transactions...");
                 var familyTransactions = transListConverter.Convert(readedTransactions).ToList();
-                Console.WriteLine($"Сконвертировано {familyTransactions.Count()} транзакций");
+                Console.WriteLine($"{familyTransactions.Count} transactions converted");
 
                 // Analyze transactions
                 AnalizeTransactionsList(familyTransactions);
 
-                // Save transaction to Family11 format
+                // Save transaction to Family11 XLS format
                 IFamilySaver fs = new XLSFamilySaver(outFn);
-                Console.WriteLine($"Сохраняем транзакции в файл: {outFn} ...");
+                Console.WriteLine($"Saving transactions in file: {outFn} ...");
                 fs.SaveTransactions(familyTransactions);
-                Console.WriteLine("Файл сохранен");
+                Console.WriteLine("File saved");
 
                 // Save settings to file
                 _settings.Save();
@@ -86,7 +67,7 @@ namespace Any2FamilyConsole
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Системная ошибка: " + ex);
+                Console.WriteLine("Fatal error: " + ex);
                 Console.WriteLine("\nPress any key ...");
                 Console.ReadKey();
             }
