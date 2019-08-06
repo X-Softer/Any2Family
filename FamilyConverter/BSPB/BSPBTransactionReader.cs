@@ -65,16 +65,24 @@ namespace FamilyConverter
                 string acceptDatePattern = @"^\d{2}\.\d{2}\.\d{4}$";
 
                 // Pass header and footer
-                if (row.Cells.Count == 0 || !Regex.IsMatch(row.Cells[0].StringCellValue.Trim(), acceptDatePattern))
+                DateTime acceptDate;
+                if (row.Cells.Count == 0 || (row.Cells[0].CellType != CellType.Numeric && !Regex.IsMatch(row.Cells[0].StringCellValue.Trim(), acceptDatePattern)))
                 {
                     continue;
                 }
-
-                string acceptDateStr = Regex.Match(row.Cells[0].StringCellValue.Trim(), acceptDatePattern).Value;
+                if (row.Cells[0].CellType == CellType.Numeric)
+                {
+                     acceptDate = row.Cells[0].DateCellValue;
+                }
+                else
+                {
+                    string acceptDateStr = Regex.Match(row.Cells[0].StringCellValue.Trim(), acceptDatePattern).Value;
+                    acceptDate = DateTime.ParseExact(acceptDateStr, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                }
 
                 BSPBTransactionEntry transEntry = new BSPBTransactionEntry();
                 transEntry.Id = tId.ToString();
-                transEntry.AcceptTime = DateTime.ParseExact(acceptDateStr, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                transEntry.AcceptTime = acceptDate;
                 transEntry.Account = row.Cells[1].StringCellValue;
                 transEntry.OperCurrency = transEntry.AcceptCurrency = "RUB";
                 transEntry.OperLocation = row.Cells[2].StringCellValue;
