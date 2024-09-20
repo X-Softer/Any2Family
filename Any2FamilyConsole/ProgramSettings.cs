@@ -32,6 +32,7 @@ namespace Any2FamilyConsole
             Bindings = Bindings.Instance;
             Bindings.Bind(1, typeof(TinkoffTransactionReader), typeof(TinkoffTLConverter));
             Bindings.Bind(2, typeof(BSPBTransactionReader), typeof(BSPBTLConverter));
+            Bindings.Bind(11, typeof(TinkoffOfxTransactionReader), typeof(TinkoffOfxTLConverter));
         }
 
         public static ProgramSettings Create(string fileName, bool needToLoad = true)

@@ -16,10 +16,10 @@ namespace Any2FamilyConsole
             {
                 if (args.Length < 2)
                 {
-                    Console.WriteLine("\nUsage: any2familycon <type> <filename> [output filename]");
+                    Console.WriteLine("\nUsage: any2familycon <type> <filename> [params]");
                     Console.WriteLine("\nTypes: 1 -  Tinkoff Bank CSV-file");
                     Console.WriteLine("       2 -  Bank SPB CSV-file");
-                    //Console.WriteLine("       3 -  PSCB CSV-file");
+                    Console.WriteLine("       11 -  Tinkoff Bank OFX-file");
                     return;
                 }
                 
@@ -35,14 +35,21 @@ namespace Any2FamilyConsole
                 ITLConverter transListConverter = TLConvertersFactory.GetTLConverter(convType, _settings.Bindings, _settings.TLSettings);
 
                 string outFn = $"{transListConverter.Name}_converted_{DateTime.Now:yyyyMMdd_HHmmss}.xls";
+
+                string[] addParams = null;
                 if (args.Length >= 3)
                 {
-                    outFn = args[2];
+                    addParams = new string[args.Length - 2];
+                    int j = 0;
+                    for (int i = 2; i < args.Length; i++)
+                    {
+                        addParams[j++] = args[i];
+                    }
                 }
-
+                
                 // Load transactions
                 Console.WriteLine($"Loading transactions from file: {fn}...");
-                var readedTransactions = transReader.ReadTransactions().ToList();
+                var readedTransactions = transReader.ReadTransactions(addParams).ToList();
                 Console.WriteLine($"{readedTransactions.Count} transactions loaded");
 
                 // Convert transactions

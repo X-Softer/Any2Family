@@ -26,7 +26,7 @@ namespace FamilyConverter
             _nfi.NumberDecimalDigits = 4;
         }
 
-        public override IEnumerable<TransactionEntry> ReadTransactions()
+        public override IEnumerable<TransactionEntry> ReadTransactions(params string[] p)
         {
             List<TransactionEntry> transList = new List<TransactionEntry>();
 

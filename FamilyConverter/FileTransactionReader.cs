@@ -11,6 +11,6 @@ namespace FamilyConverter
             FileName = fileName;
         }
 
-        public abstract IEnumerable<TransactionEntry> ReadTransactions();
+        public abstract IEnumerable<TransactionEntry> ReadTransactions(params string[] pars);
     }
 }
